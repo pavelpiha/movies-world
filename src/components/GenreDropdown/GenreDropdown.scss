@@ -1,0 +1,13 @@
+.genreDropdown {
+  width: 30%;
+  & select {
+    width: 100%;
+    color: #323232;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+    border-radius: 4px;
+    & option {
+      color: black;
+    }
+  }
+}
