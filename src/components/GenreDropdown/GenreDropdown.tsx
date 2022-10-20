@@ -21,7 +21,7 @@ export class GenreDropdown extends React.PureComponent<any, any> {
     const { options, value } = this.state;
 
     return (
-      <Fragment>
+      <>
         <span className="genreDropdown">
           <select onChange={this.handleChange} value={value}>
             {options.map((item) => (
@@ -32,7 +32,7 @@ export class GenreDropdown extends React.PureComponent<any, any> {
           </select>
         </span>
         <h1>Genre : {value}</h1>
-      </Fragment>
+      </>
     );
   }
 }

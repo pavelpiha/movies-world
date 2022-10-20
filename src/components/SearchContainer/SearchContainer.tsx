@@ -5,14 +5,19 @@ function SearchContainer({ handleIncrement, handleSubmit }: any) {
   const updateSearchInput = (event: any) => {
     setSearchEntry(event.target.value);
   };
+
+  function updateSearch() {
+    return (event) => {
+      event.preventDefault();
+      handleIncrement();
+      return handleSubmit(searchEntry);
+    };
+  }
+
   return (
     <form
       className="searchContainer"
-      onSubmit={(event) => {
-        event.preventDefault();
-        handleIncrement();
-        return handleSubmit(searchEntry);
-      }}
+      onSubmit={updateSearch()}
     >
       <input
         type="text"
@@ -27,6 +32,8 @@ function SearchContainer({ handleIncrement, handleSubmit }: any) {
       </button>
     </form>
   );
+
+
 }
 
 export default SearchContainer;
