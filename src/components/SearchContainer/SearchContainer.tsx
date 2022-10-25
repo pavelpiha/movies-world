@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function SearchContainer({ handleIncrement, handleSubmit }: any) {
-  const [searchEntry, setSearchEntry] = useState("");
+  const [searchEntry, setSearchEntry] = useState('');
   const updateSearchInput = (event: any) => {
     setSearchEntry(event.target.value);
   };
@@ -15,10 +15,7 @@ function SearchContainer({ handleIncrement, handleSubmit }: any) {
   }
 
   return (
-    <form
-      className="searchContainer"
-      onSubmit={updateSearch()}
-    >
+    <form className="searchContainer" onSubmit={updateSearch()}>
       <input
         type="text"
         name="search"
@@ -32,8 +29,6 @@ function SearchContainer({ handleIncrement, handleSubmit }: any) {
       </button>
     </form>
   );
-
-
 }
 
 export default SearchContainer;

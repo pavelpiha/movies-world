@@ -1,0 +1,17 @@
+{
+  "extends": "stylelint-config-recommended-scss",
+  "plugins": ["stylelint-scss", "stylelint-prettier"],
+  "rules": {
+    "prettier/prettier": true,
+    "scss/selector-no-redundant-nesting-selector": true,
+    "no-empty-source": null,
+    "font-family-no-missing-generic-family-keyword": null,
+    "no-descending-specificity": null,
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": ["ng-deep"]
+      }
+    ]
+  }
+}
