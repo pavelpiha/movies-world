@@ -1,10 +1,10 @@
-import { useState } from "react";
-import "./App.scss";
-import { Header } from "./components/Header/Header";
+import { useState } from 'react';
+import './App.scss';
+import { Header } from './components/Header/Header';
 
-function App() {
-  const [searchEntry, setSearchEntry] = useState("");
-  const handleSubmit = (searchInput) => {
+function App(): any {
+  const [searchEntry, setSearchEntry] = useState('');
+  const handleSubmit = (searchInput: string): void => {
     setSearchEntry(searchInput);
   };
 

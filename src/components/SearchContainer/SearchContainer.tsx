@@ -1,24 +1,19 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-function SearchContainer({ handleIncrement, handleSubmit }: any) {
-  const [searchEntry, setSearchEntry] = useState("");
-  const updateSearchInput = (event: any) => {
+function SearchContainer({ handleIncrement, handleSubmit }: any): any {
+  const [searchEntry, setSearchEntry] = useState('');
+  const updateSearchInput = (event: any): void => {
     setSearchEntry(event.target.value);
   };
 
-  function updateSearch() {
-    return (event) => {
-      event.preventDefault();
-      handleIncrement();
-      return handleSubmit(searchEntry);
-    };
+  function updateSearch(event): void {
+    event.preventDefault();
+    handleIncrement();
+    handleSubmit(searchEntry);
   }
 
   return (
-    <form
-      className="searchContainer"
-      onSubmit={updateSearch()}
-    >
+    <form className="searchContainer" onSubmit={updateSearch}>
       <input
         type="text"
         name="search"
@@ -32,8 +27,6 @@ function SearchContainer({ handleIncrement, handleSubmit }: any) {
       </button>
     </form>
   );
-
-
 }
 
 export default SearchContainer;
