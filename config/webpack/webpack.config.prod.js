@@ -21,7 +21,6 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss'],
   },
   optimization: {
-
     nodeEnv: 'production',
     splitChunks: {
       chunks: 'all',
@@ -39,11 +38,9 @@ module.exports = {
     },
     minimize: true,
     minimizer: [
-      new TerserPlugin(
-        new TerserPlugin({
-          parallel: 4,
-        })
-      ),
+      new TerserPlugin({
+        parallel: 4,
+      }),
       new CssMinimizerPlugin(),
     ],
   },
@@ -121,6 +118,6 @@ module.exports = {
     ],
   },
   performance: {
-    hints: false
-  }
+    hints: false,
+  },
 };

@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval-cheap-module-source-map',
   entry: helpers.root('src/index.tsx'),
   output: {
     filename: '[name].chunk.js',
@@ -17,6 +17,9 @@ module.exports = {
   },
   watch: true,
   devServer: {
+    static: {
+      directory: helpers.root('dev'),
+    },
     client: {
       overlay: {
         warnings: false,
@@ -29,10 +32,10 @@ module.exports = {
         hash: false,
         version: true,
         timings: true,
-        assets: false,
+        assets: true,
         chunks: false,
         modules: false,
-        publicPath: false,
+        publicPath: true,
       },
     },
     hot: true,
@@ -77,8 +80,8 @@ module.exports = {
         loader: 'html-loader',
       },
       {
-        test: /\.scss$/,
-        use: ['css-loader', 'sass-loader'],
+        test: /\.(scss|css)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
