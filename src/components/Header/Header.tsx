@@ -1,6 +1,5 @@
-import React from "react";
-import { GenreDropdown } from "../GenreDropdown/GenreDropdown";
-import SearchContainer from "../SearchContainer/SearchContainer";
+import React, { ReactNode } from 'react';
+import SearchContainer from '../SearchContainer/SearchContainer';
 
 export class Header extends React.Component<any, any> {
   constructor(props) {
@@ -8,23 +7,18 @@ export class Header extends React.Component<any, any> {
     this.state = { searchedTimes: 0 };
   }
 
-  handleIncrement = () => {
+  handleIncrement = (): void => {
     let searchedTimes = this.state.searchedTimes;
     searchedTimes++;
     this.setState({ searchedTimes });
   };
 
-  render() {
+  render(): ReactNode {
     return (
-      <div className="headerContainer">
+      <header className="headerContainer">
         <h1>Movie World </h1>
-        <SearchContainer
-          handleSubmit={this.props.handleSubmit}
-          handleIncrement={this.handleIncrement}
-        />
-        <GenreDropdown />
-        <div>{this.state.searchedTimes}</div>
-      </div>
+        <SearchContainer handleSubmit={this.props.handleSubmit} handleIncrement={this.handleIncrement} />
+      </header>
     );
   }
 }
