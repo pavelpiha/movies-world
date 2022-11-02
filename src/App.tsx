@@ -25,7 +25,7 @@ function App(): any {
         </ErrorBoundary>
       </Layout>
       <Footer>
-        <FooterEmail></FooterEmail>
+        <FooterEmail />
       </Footer>
     </>
   );

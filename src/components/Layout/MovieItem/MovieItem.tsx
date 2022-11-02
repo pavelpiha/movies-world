@@ -1,6 +1,6 @@
 import './MovieItem.scss';
 
-export interface MovieItemProp {
+export interface MovieItemProps {
   id: number;
   title: string;
   posterPath: string;
@@ -8,7 +8,7 @@ export interface MovieItemProp {
   genres: string[];
   releaseDate: string;
 }
-export const MovieItem = (props: MovieItemProp): JSX.Element => (
+export const MovieItem = (props: MovieItemProps): JSX.Element => (
   <article className="mwMovieItem">
     <div className="mwMovieItemImageBlock">
       <img src={props.posterPath} alt="" />

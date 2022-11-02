@@ -23,13 +23,15 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   render(): ReactNode {
-    if (this.state.hasError) {
-      if (this.props.message) {
-        return <h1>{this.props.message}</h1>;
-      }
-      return <h1>There is some problem</h1>;
+    if (!this.state.hasError) {
+      return this.props.children;
     }
-    return this.props.children;
+
+    if (this.props.message) {
+      return <h1>{this.props.message}</h1>;
+    }
+
+    return <h1>There is some problem</h1>;
   }
 }
 
