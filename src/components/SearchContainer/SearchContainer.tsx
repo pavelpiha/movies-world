@@ -1,6 +1,6 @@
 import { useState } from 'react';
-
-function SearchContainer({ handleIncrement, handleSubmit }: any): any {
+import PropTypes from 'prop-types';
+function SearchContainer({ handleIncrement, handleSubmit }: any): JSX.Element {
   const [searchEntry, setSearchEntry] = useState('');
   const updateSearchInput = (event: any): void => {
     setSearchEntry(event.target.value);
@@ -28,5 +28,10 @@ function SearchContainer({ handleIncrement, handleSubmit }: any): any {
     </form>
   );
 }
+
+SearchContainer.propTypes = {
+  handleIncrement: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
 
 export default SearchContainer;
