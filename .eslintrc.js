@@ -14,7 +14,7 @@ module.exports = {
       },
     },
     {
-      files: ["**/*.ts", "**/*.tsx"],
+      files: ['**/*.ts', '**/*.tsx'],
       env: {
         browser: true,
         node: true,
@@ -51,6 +51,16 @@ module.exports = {
           'error',
           {
             'allowExpressions': true,
+          },
+        ],
+        'simple-import-sort/imports': [
+          'error',
+          {
+            groups: [
+              ['^react', '^\\w'], // react, from 'package'
+              ['^\\.\\./?$', '^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'], // ./ ../ and paths in tsconfig
+              ['^\\u0000'], // side effect imports ex: import 'something'
+            ],
           },
         ],
         '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }],

@@ -1,0 +1,13 @@
+@import '.././../../../styles/colors.scss';
+
+.mwGenresContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  margin: auto;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: $white-color;
+}
