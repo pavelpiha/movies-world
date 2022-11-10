@@ -45,22 +45,19 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  // color: $white-color;
   text-align: center;
   mix-blend-mode: normal;
   margin: auto;
 }
 
 .mwMovieSortDropdown {
-  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
   letter-spacing: 0.888889px;
   text-transform: uppercase;
 
-  // color: $white-color;
-  background: #232323;
+  background: $dark-grey-1-color;
 }
 
 .mwDropdown {

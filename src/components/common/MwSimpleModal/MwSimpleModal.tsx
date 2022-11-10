@@ -25,7 +25,6 @@ const MwSimpleModal = (props: MwSimpleModalProps): JSX.Element => {
         <div className="mwSimpleModalMessage">{props.message}</div>
         <MwButton handleClick={handleCloseDialog} buttonName={mwSubmitButtonTitle} buttonClassName="mwSubmitButton" />
         <div className="mwSimpleModalSubmit"></div>
-        <div></div>
       </div>
     </div>
   );
