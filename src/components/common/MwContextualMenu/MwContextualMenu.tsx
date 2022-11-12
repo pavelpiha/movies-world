@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { MOVIE_CONTEXT_MENU_OPTIONS } from '../../../constants/constants';
 import MwButton from '../../common/MwButton/MwButton';
 import { MovieItemProps } from '../../Layout/MovieItem/MovieItem';
 import useComponentVisible from '../hooks/useComponentVisible';
@@ -20,22 +21,19 @@ export const MwContextualMenu = (props: MwContextualMenuProps): JSX.Element => {
     setIsComponentVisible(true);
   };
 
-  const options = [
-    { id: 'edit', name: 'Edit' },
-    { id: 'remove', name: 'Remove' },
-  ];
-
   const removeDialog = (
-    <MwSimpleModal handleCloseDialog={setIsRemoveDialogVisible} message="Are you sure you want to delete this movie?" />
+    <MwSimpleModal
+      title="Remove movie?"
+      handleCloseDialog={setIsRemoveDialogVisible}
+      message="Are you sure you want to delete this movie?"
+    />
   );
 
   const onRemoveClick = (): void => {
     setIsRemoveDialogVisible(true);
   };
 
-  const onEditClick = (): void => {
-    console.log('', props.movieItem);
-  };
+  const onEditClick = (): void => {};
 
   const handleMenuItemClick = (event): void => {
     const menuOption = event.target.value;
@@ -44,7 +42,7 @@ export const MwContextualMenu = (props: MwContextualMenuProps): JSX.Element => {
   };
 
   const getMenuOptions = (): JSX.Element => {
-    const menuOptions = options.map((option) => (
+    const menuOptions = MOVIE_CONTEXT_MENU_OPTIONS.map((option) => (
       <option value={option.id} className="mwContextMenuOption" key={option.id}>
         {option.name}
       </option>
@@ -53,11 +51,11 @@ export const MwContextualMenu = (props: MwContextualMenuProps): JSX.Element => {
   };
   return (
     <>
-      <MwButton handleClick={showModal} buttonClassName="mwContextualMenuButton">
+      <MwButton onClickInternal={showModal} className="mwContextualMenuButton">
         <MenuDotsIcon className="mwMenuDotsIcon" />
       </MwButton>
       {props.children}
-      {isComponentVisible && options ? (
+      {isComponentVisible && MOVIE_CONTEXT_MENU_OPTIONS ? (
         <div ref={ref} className="mwContextualMenu" onClick={handleMenuItemClick}>
           {getMenuOptions()}
         </div>

@@ -16,29 +16,25 @@ export interface MwInputProps {
 const MwInput = (props: MwInputProps): JSX.Element => {
   const inputRef = React.useRef(null);
 
-  const handleClick = (): void => {
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
-    }
+  const onClickInternal = (): void => {
+    inputRef?.current?.focus();
   };
   return (
-    <>
-      <div className={props.className}>
-        <div className="mwInputTitle">{props.name}</div>
-        <div onClick={handleClick} className="mwInputContainer">
-          <input
-            ref={inputRef}
-            tabIndex={0}
-            type={props.type}
-            name={props.name}
-            onChange={props.onChange}
-            placeholder={props.placeholder}
-            value={props.value}
-          />
-        </div>
-        <div className="mwInputError">{props.error}</div>
+    <div className={props.className}>
+      <div className="mwInputTitle">{props.name}</div>
+      <div onClick={onClickInternal} className="mwInputContainer">
+        <input
+          ref={inputRef}
+          tabIndex={0}
+          type={props.type}
+          name={props.name}
+          onChange={props.onChange}
+          placeholder={props.placeholder}
+          value={props.value}
+        />
       </div>
-    </>
+      <div className="mwInputError">{props.error}</div>
+    </div>
   );
 };
 

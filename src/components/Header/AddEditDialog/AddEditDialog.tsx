@@ -8,29 +8,18 @@ import { MovieItemProps } from '../../Layout/MovieItem/MovieItem';
 import './AddEditDialog.scss';
 
 export interface AddEditDialogProps {
-  isDialogShowed: boolean;
+  isDialogShown: boolean;
   handleCancelClick: Function;
   movieItem?: MovieItemProps;
   children?: JSX.Element;
 }
 export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
-  if (!props.isDialogShowed) {
+  if (!props.isDialogShown) {
     return null;
   }
-  const movieObject: MovieItemProps = {
-    id: 0,
-    title: '',
-    posterPath: '',
-    overview: '',
-    genres: [],
-    releaseDate: '',
-  };
+
   const title = props.movieItem ? 'Edit Movie' : 'Add Movie';
-  const onTitleChange = (event: any): void => {
-    console.log('event', event);
-    console.log('event.target.value', event.target.value);
-    movieObject.title = event.target.value;
-  };
+  const onTitleChange = (_event: any): void => {};
   const onRuntimeChange = (_event: ChangeEvent<Element>): void => {};
 
   const onSubmitClick = (): void => {};
@@ -38,7 +27,7 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
   return (
     <div className="mwOverlay">
       <div className="mwAddEditDialog">
-        <MwButton handleClick={props.handleCancelClick} buttonClassName="mwCloseButton">
+        <MwButton onClickInternal={props.handleCancelClick} className="mwCloseButton">
           <CrossIcon className="mwCloseIcon" />
         </MwButton>
         {props.children}
@@ -114,8 +103,8 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
           </div>
         </div>
         <div className="mwFormFooter">
-          <MwButton handleClick={props.handleCancelClick} buttonClassName="mwCancelButton" buttonName="Reset" />
-          <MwButton handleClick={onSubmitClick} buttonClassName="mwSubmitButton" buttonName="Submit" />
+          <MwButton onClickInternal={props.handleCancelClick} className="mwCancelButton" buttonName="Reset" />
+          <MwButton onClickInternal={onSubmitClick} className="mwSubmitButton" buttonName="Submit" />
         </div>
       </div>
     </div>

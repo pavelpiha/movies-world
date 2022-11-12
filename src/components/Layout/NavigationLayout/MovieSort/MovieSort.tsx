@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 
+import { RED_COLOR, SORT_OPTIONS } from '../../../../constants/constants';
 import { SortingContext } from '../../../../contexts/SortingContext';
 import useComponentVisible from '../../../common/hooks/useComponentVisible';
 import { ArrowDownIcon } from '../../../common/icons/ArrowDownIcon/ArrowDownIcon';
@@ -10,11 +11,6 @@ import './MovieSort.scss';
 const MovieSort = (): JSX.Element => {
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
   const [sortingType, setSortingType] = useContext(SortingContext);
-  const RED_COLOR = '#f65261';
-  const options = [
-    { id: 'release date', name: 'Release date' },
-    { id: 'title', name: 'Title' },
-  ];
 
   const onDropDownClick = (): void => {
     setIsComponentVisible(!isComponentVisible);
@@ -25,7 +21,7 @@ const MovieSort = (): JSX.Element => {
   };
 
   const getMenuOptions = (): JSX.Element => {
-    const menuOptions = options.map((option) => (
+    const menuOptions = SORT_OPTIONS.map((option) => (
       <option value={option.id} className="mwDropdownOption" key={option.id}>
         {option.name}
       </option>
@@ -39,11 +35,11 @@ const MovieSort = (): JSX.Element => {
       <div ref={ref} className="mwDropdown">
         <div className="mwDropdownInput">
           <div className="mwDropdownValue">{sortingType}</div>
-          <MwButton handleClick={onDropDownClick} buttonClassName="mwArrowDownButton">
+          <MwButton onClickInternal={onDropDownClick} className="mwArrowDownButton">
             <ArrowDownIcon className="mwArrowDownIcon" fill={RED_COLOR} />
           </MwButton>
         </div>
-        {isComponentVisible && options ? (
+        {isComponentVisible && SORT_OPTIONS ? (
           <div className="mwDropdownList" onClick={handleMenuItemClick}>
             {getMenuOptions()}
           </div>

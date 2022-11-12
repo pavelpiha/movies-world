@@ -6,20 +6,20 @@ import SearchContainer from '../SearchContainer/SearchContainer';
 
 export interface HeaderState {
   searchedTimes: number;
-  isDialogShowed: boolean;
+  isDialogShown: boolean;
 }
 export class Header extends React.Component<any, HeaderState> {
   title = '+ Add Movie';
   state: HeaderState = {
     searchedTimes: 0,
-    isDialogShowed: false,
+    isDialogShown: false,
   };
   constructor(props) {
     super(props);
   }
 
   showModal = (): void => {
-    this.setState({ ...this.state, isDialogShowed: !this.state.isDialogShowed });
+    this.setState({ ...this.state, isDialogShown: !this.state.isDialogShown });
   };
 
   handleIncrement = (): void => {
@@ -33,11 +33,11 @@ export class Header extends React.Component<any, HeaderState> {
       <header className="headerContainer">
         <h1>Movie World </h1>
         <MwButton
-          handleClick={this.showModal}
-          buttonClassName="addEditDialogButton"
+          onClickInternal={this.showModal}
+          className="addEditDialogButton"
           buttonName={this.title.toUpperCase()}
         ></MwButton>
-        <AddEditDialog isDialogShowed={this.state.isDialogShowed} handleCancelClick={this.showModal} />
+        <AddEditDialog isDialogShown={this.state.isDialogShown} handleCancelClick={this.showModal} />
         <SearchContainer handleSubmit={this.props.handleSubmit} handleIncrement={this.handleIncrement} />
       </header>
     );

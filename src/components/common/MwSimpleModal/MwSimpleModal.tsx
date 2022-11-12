@@ -5,7 +5,7 @@ import './MwSimpleModal.scss';
 
 export interface MwSimpleModalProps {
   message: string;
-  title?: string;
+  title: string;
   mwSubmitButton?: string;
   className?: string;
   handleCloseDialog: Function;
@@ -18,13 +18,13 @@ const MwSimpleModal = (props: MwSimpleModalProps): JSX.Element => {
   return (
     <div className="mwOverlay">
       <div className={props.className ? props.className : 'mwDefaultModalContainer'}>
-        <MwButton handleClick={handleCloseDialog} buttonClassName="mwCloseButton">
+        <MwButton onClickInternal={handleCloseDialog} className="mwCloseButton">
           <CrossIcon className="mwCloseIcon" />
         </MwButton>
-        <h3>{props.title ? props.title : 'Remove movie?'}</h3>
+        <h3>{props.title}</h3>
         <div className="mwSimpleModalMessage">{props.message}</div>
-        <MwButton handleClick={handleCloseDialog} buttonName={mwSubmitButtonTitle} buttonClassName="mwSubmitButton" />
-        <div className="mwSimpleModalSubmit"></div>
+        <MwButton onClickInternal={handleCloseDialog} buttonName={mwSubmitButtonTitle} className="mwSubmitButton" />
+        <div className="mwSimpleModalSubmit" />
       </div>
     </div>
   );
