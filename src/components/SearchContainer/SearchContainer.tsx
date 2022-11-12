@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+
 function SearchContainer({ handleIncrement, handleSubmit }: any): JSX.Element {
   const [searchEntry, setSearchEntry] = useState('');
   const updateSearchInput = (event: any): void => {

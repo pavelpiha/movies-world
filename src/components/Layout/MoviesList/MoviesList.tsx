@@ -1,6 +1,7 @@
-import { MovieItem, MovieItemProps } from '../MovieItem/MovieItem';
-import './MoviesList.scss';
 import DATA from '../../../constants/data.json';
+import { MovieItem, MovieItemProps } from '../MovieItem/MovieItem';
+
+import './MoviesList.scss';
 
 interface MoviesListProps {
   searchEntry: string;

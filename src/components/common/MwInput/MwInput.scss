@@ -1,0 +1,40 @@
+@import '../../../styles/colors.scss';
+
+input {
+  width: 100%;
+  height: 36px;
+  background: $grey-5-color;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+  border-radius: 4px;
+}
+.mwMiddleInput {
+  display: inline-flex;
+  flex-flow: column wrap;
+  width: 60%;
+}
+.mwShortInput {
+  display: inline-flex;
+  flex-flow: column wrap;
+  width: 35%;
+}
+.mwLongInput {
+  display: inline-flex;
+  flex-flow: column;
+  width: 100%;
+  & input {
+    height: 150px;
+  }
+}
+
+.mwInputTitle {
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.888889px;
+  text-transform: uppercase;
+  color: $red-color;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+}

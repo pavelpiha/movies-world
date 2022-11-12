@@ -1,3 +1,5 @@
+import { MwContextualMenu } from '../../common/MwContextualMenu/MwContextualMenu';
+
 import './MovieItem.scss';
 
 export interface MovieItemProps {
@@ -11,6 +13,7 @@ export interface MovieItemProps {
 export const MovieItem = (props: MovieItemProps): JSX.Element => (
   <article className="mwMovieItem">
     <div className="mwMovieItemImageBlock">
+      <MwContextualMenu movieItem={props} />
       <img src={props.posterPath} alt="" />
     </div>
     <div className="mwMovieItemFooter">

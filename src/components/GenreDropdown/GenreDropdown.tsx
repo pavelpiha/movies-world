@@ -1,23 +1,23 @@
-import React, { Fragment } from "react";
+import React, { ReactNode } from 'react';
 
 export class GenreDropdown extends React.PureComponent<any, any> {
   options = [
-    { label: "Select genre", value: "" },
-    { label: "Crime", value: "Crime" },
-    { label: "Documentary", value: "Documentary" },
-    { label: "Horror", value: "Horror" },
-    { label: "Comedy", value: "Comedy" },
+    { label: 'Select genre', value: '' },
+    { label: 'Crime', value: 'Crime' },
+    { label: 'Documentary', value: 'Documentary' },
+    { label: 'Horror', value: 'Horror' },
+    { label: 'Comedy', value: 'Comedy' },
   ];
   constructor(props) {
     super(props);
-    this.state = { options: this.options, value: "" };
+    this.state = { options: this.options, value: '' };
   }
 
-  handleChange = (event) => {
+  handleChange = (event): void => {
     this.setState({ value: event.target.value });
   };
 
-  render() {
+  render(): ReactNode {
     const { options, value } = this.state;
 
     return (

@@ -1,0 +1,41 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/variables.scss';
+
+.mwDefaultModalContainer {
+  display: flex;
+  flex-flow: column wrap;
+  position: absolute;
+  z-index: 90;
+  height: 200px;
+  width: 300px;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: $dark-grey-1-color;
+  box-shadow: $mwShadow-2;
+  & h3 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: $white-color;
+  }
+}
+
+.mwSimpleModalMessage {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  color: $white-color;
+}
+
+.mwOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $grey-4-color;
+  z-index: 90;
+}

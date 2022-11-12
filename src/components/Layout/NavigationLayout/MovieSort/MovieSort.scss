@@ -1,0 +1,68 @@
+@import '.././../../../styles/colors.scss';
+@import '../../../styles/variables.scss';
+
+.mwMovieSortContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: $white-color;
+  > div {
+    margin: auto;
+  }
+}
+
+.mwDropdownList {
+  position: absolute;
+  margin-top: 36px;
+  z-index: 11;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  mix-blend-mode: normal;
+}
+
+.mwDropdownOption {
+  padding: 4px 20px 4px 20px;
+  opacity: 0.8;
+  &:hover {
+    background: $red-color;
+    box-shadow: $mwShadow;
+    backdrop-filter: blur(13.5914px);
+    border-radius: 4px;
+  }
+}
+
+.mwDropdownInput {
+  display: flex;
+  flex-direction: row;
+}
+
+.mwDropdownValue {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  mix-blend-mode: normal;
+  margin: auto;
+}
+
+.mwMovieSortDropdown {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.888889px;
+  text-transform: uppercase;
+
+  background: $dark-grey-1-color;
+}
+
+.mwDropdown {
+  display: flex;
+  min-width: 155px;
+  flex-flow: column wrap;
+}
