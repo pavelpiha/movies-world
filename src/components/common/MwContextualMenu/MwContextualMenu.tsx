@@ -15,7 +15,7 @@ export interface MwContextualMenuProps {
 }
 export const MwContextualMenu = (props: MwContextualMenuProps): JSX.Element => {
   const [isRemoveDialogVisible, setIsRemoveDialogVisible] = useState(false);
-  const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
+  const [ref, isComponentVisible, setIsComponentVisible] = useComponentVisible(false, false);
 
   const showModal = (): void => {
     setIsComponentVisible(true);

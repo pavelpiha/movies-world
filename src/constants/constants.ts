@@ -10,3 +10,11 @@ export const MOVIE_CONTEXT_MENU_OPTIONS = [
   { id: 'edit', name: 'Edit' },
   { id: 'remove', name: 'Remove' },
 ];
+
+export const GENRE_OPTIONS = [
+  { label: 'Select genre', value: '' },
+  { label: 'Crime', value: 'Crime' },
+  { label: 'Documentary', value: 'Documentary' },
+  { label: 'Horror', value: 'Horror' },
+  { label: 'Comedy', value: 'Comedy' },
+];
