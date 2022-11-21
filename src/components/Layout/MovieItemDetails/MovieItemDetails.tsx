@@ -14,23 +14,25 @@ const MovieItemDetails = (): JSX.Element => {
   const onSearchClick = (): void => {
     setIsMovieDetailsShown(false);
   };
-
+  if (!movieItem) {
+    return null;
+  }
   return (
     <div className="mwMovieItemDetails">
       <div className="mwMovieImage">
-        <img src={movieItem?.posterPath} alt="" />
+        <img src={movieItem.posterPath} alt="" />
       </div>
       <div className="mwMovieDetails">
         <div className="mwMovieTitleBlock">
-          <div className="mwMovieTitle">{movieItem?.title}</div>
-          <span className="mwMovieScore">{movieItem?.voteAverage}</span>
+          <div className="mwMovieTitle">{movieItem.title}</div>
+          <span className="mwMovieScore">{movieItem.voteAverage}</span>
         </div>
-        <div className="mwMovieGenre">{movieItem?.genres.join(', ')}</div>
+        <div className="mwMovieGenre">{movieItem.genres.join(', ')}</div>
         <div className="mwMovieYear">
-          <div>{movieItem?.releaseDate}</div>
-          <div>{movieItem?.runtime}</div>
+          <div>{movieItem.releaseDate}</div>
+          <div>{movieItem.runtime}</div>
         </div>
-        <div className="mwMovieOverview">{movieItem?.overview}</div>
+        <div className="mwMovieOverview">{movieItem.overview}</div>
       </div>
       <div className="mwSearchButtonBlock">
         <MwButton onClickInternal={onSearchClick} className="mwSearchButton">
