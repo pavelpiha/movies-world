@@ -31,6 +31,7 @@ module.exports = {
         'import',
         'simple-import-sort',
         'unused-imports',
+        'react-hooks',
       ],
       rules: {
         'prettier/prettier': ['warn'],
@@ -39,6 +40,8 @@ module.exports = {
         'eqeqeq': ['error', 'smart'],
         'arrow-body-style': 'error',
         'no-var': 'error',
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
         '@typescript-eslint/adjacent-overload-signatures': 'error',
         '@typescript-eslint/consistent-type-assertions': 'error',
         '@typescript-eslint/explicit-member-accessibility': [

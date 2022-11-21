@@ -1,0 +1,12 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/variables.scss';
+
+.mwSearchIcon {
+  transform: rotate(90deg);
+  &:hover {
+    background: $red-color;
+    box-shadow: $mwShadow;
+    backdrop-filter: blur(13.5914px);
+    border-radius: 4px;
+  }
+}

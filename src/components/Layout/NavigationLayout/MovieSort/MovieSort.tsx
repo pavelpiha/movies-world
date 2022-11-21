@@ -9,7 +9,7 @@ import MwButton from '../../../common/MwButton/MwButton';
 import './MovieSort.scss';
 
 const MovieSort = (): JSX.Element => {
-  const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
+  const [ref, isComponentVisible, setIsComponentVisible] = useComponentVisible(false, false);
   const [sortingType, setSortingType] = useContext(SortingContext);
 
   const onDropDownClick = (): void => {

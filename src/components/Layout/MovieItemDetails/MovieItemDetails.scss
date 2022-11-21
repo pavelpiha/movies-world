@@ -1,0 +1,80 @@
+@import '../../../styles/colors.scss';
+
+.mwMovieItemDetails {
+  height: 250px;
+  display: flex;
+}
+
+.mwMovieImage {
+  position: relative;
+  width: 30%;
+  height: 90%;
+  margin-top: 10px;
+
+  img {
+    max-height: 100%;
+    position: absolute;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.mwMovieDetails {
+  align-items: flex-start;
+  width: 60%;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.mwMovieTitleBlock {
+  display: flex;
+  align-items: center;
+  :nth-child(1) {
+    padding-right: 10px;
+  }
+}
+
+.mwMovieScore {
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  color: $white-color;
+}
+
+.mwMovieTitle {
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 49px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: $white-color;
+}
+
+.mwMovieGenre {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+  color: $white-color;
+}
+
+.mwSearchButtonBlock {
+  width: 10%;
+  padding-top: 10px;
+}
+
+.mwMovieYear {
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  color: $red-color;
+  :nth-child(1) {
+    padding-right: 10px;
+  }
+}
