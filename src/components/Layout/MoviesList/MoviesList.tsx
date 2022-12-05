@@ -1,5 +1,6 @@
-import DATA from '../../../constants/data.json';
-import { MovieItem, MovieItemProps } from '../MovieItem/MovieItem';
+import { useAppSelector } from '../../../redux/store';
+import { api } from '../../../services/api';
+import { MovieItem } from '../MovieItem/MovieItem';
 
 import './MoviesList.scss';
 
@@ -7,10 +8,12 @@ interface MoviesListProps {
   searchEntry: string;
 }
 const MoviesList = (_props: MoviesListProps): JSX.Element => {
-  const movies: MovieItemProps[] = DATA.data;
+  const sortBy = useAppSelector((state) => state.movies.sortBy);
+  const filters = useAppSelector((state) => state.movies.filters);
+  const { data = [] } = api.useGetMoviesQuery({ sortBy, filters });
 
-  if (movies) {
-    const card = movies.map((movie) => <MovieItem {...movie} key={movie.id} />);
+  if (data) {
+    const card = data.map((movie) => <MovieItem movieItem={movie} key={movie.id} />);
     return <div className="mwMoviesList">{card}</div>;
   } else {
     return <div>There are no movies</div>;

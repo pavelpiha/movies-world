@@ -5,6 +5,7 @@ export interface MwButtonProps {
   buttonName?: string;
   className?: string;
   children?: JSX.Element;
+  type?: 'submit' | 'reset' | 'button';
 }
 
 const MwButton = (props: MwButtonProps): JSX.Element => {
@@ -15,10 +16,19 @@ const MwButton = (props: MwButtonProps): JSX.Element => {
   };
 
   return (
-    <button className={className} onClick={handleChange}>
-      {buttonName}
-      {children}
-    </button>
+    <>
+      {props.type ? (
+        <button type={props.type} className={className} onClick={handleChange}>
+          {buttonName}
+          {children}
+        </button>
+      ) : (
+        <button className={className} onClick={handleChange}>
+          {buttonName}
+          {children}
+        </button>
+      )}
+    </>
   );
 };
 

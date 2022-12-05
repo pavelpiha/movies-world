@@ -18,3 +18,11 @@ export const GENRE_OPTIONS = [
   { label: 'Horror', value: 'Horror' },
   { label: 'Comedy', value: 'Comedy' },
 ];
+
+export const GENRE_FILTER = [
+  { id: 'All', value: 'All' },
+  { id: 'Crime', value: 'Crime' },
+  { id: 'Documentary', value: 'Documentary' },
+  { id: 'Horror', value: 'Horror' },
+  { id: 'Comedy', value: 'Comedy' },
+];

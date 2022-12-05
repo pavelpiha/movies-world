@@ -1,28 +1,46 @@
-import { ChangeEvent } from 'react';
-
+import { moviesActions } from '../../../redux/moviesSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
+import { api } from '../../../services/api';
 import { CrossIcon } from '../../common/icons/CrossIcon/CrossIcon';
 import MwButton from '../../common/MwButton/MwButton';
 import MwInput from '../../common/MwInput/MwInput';
-import { MovieItemProps } from '../../Layout/MovieItem/MovieItem';
 
 import './AddEditDialog.scss';
 
 export interface AddEditDialogProps {
   isDialogShown: boolean;
   handleCancelClick: Function;
-  movieItem?: MovieItemProps;
   children?: JSX.Element;
+  isCreateMode: boolean;
 }
 export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
+  const movieItem = useAppSelector((state) => state.movies.movie);
+  const title = props.isCreateMode ? 'Add Movie' : 'Edit Movie';
+  const [updateMovie] = api.useUpdateMovieMutation();
+  const [createMovie] = api.useCreateMovieMutation();
+  const dispatch = useAppDispatch();
   if (!props.isDialogShown) {
     return null;
   }
 
-  const title = props.movieItem ? 'Edit Movie' : 'Add Movie';
-  const onTitleChange = (_event: any): void => {};
-  const onRuntimeChange = (_event: ChangeEvent<Element>): void => {};
+  const handleInputChange = (event: any): void => {
+    const propName = event.target.id;
+    let propValue = event.target.value;
+    if (propName === 'genres') {
+      const temp: string = event.target.value;
+      propValue = temp.split(',');
+    }
+    dispatch(moviesActions.setMovie({ ...movieItem, [propName]: propValue }));
+  };
 
-  const onSubmitClick = (): void => {};
+  const onSubmitClick = (): void => {
+    if (props.isCreateMode) {
+      createMovie(movieItem);
+    } else {
+      updateMovie(movieItem);
+    }
+    props.handleCancelClick();
+  };
 
   return (
     <div className="mwOverlay">
@@ -33,78 +51,87 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
         {props.children}
         <div className="mwFormTitle">{title}</div>
         <div className="mwFormBody">
-          <div className="mwFormRow">
-            <MwInput
-              className="mwMiddleInput"
-              containerStyle=""
-              name="title"
-              onChange={onTitleChange}
-              type="text"
-              value=""
-            />
-            <MwInput
-              className="mwShortInput"
-              containerStyle=""
-              name="Release date"
-              onChange={onTitleChange}
-              type="date"
-              value=""
-            />
-          </div>
-          <div className="mwFormRow">
-            <MwInput
-              className="mwMiddleInput"
-              containerStyle=""
-              name="Movie URL"
-              onChange={onTitleChange}
-              type="text"
-              value=""
-              placeholder="https://"
-            />
-            <MwInput
-              className="mwShortInput"
-              containerStyle=""
-              name="Rating"
-              onChange={onTitleChange}
-              type="text"
-              value=""
-              placeholder="7.8"
-            />
-          </div>
-          <div className="mwFormRow">
-            <MwInput
-              className="mwMiddleInput"
-              containerStyle=""
-              name="Genre"
-              onChange={onTitleChange}
-              type="text"
-              value=""
-            />
-            <MwInput
-              className="mwShortInput"
-              containerStyle=""
-              name="Runtime"
-              onChange={onRuntimeChange}
-              type="text"
-              value=""
-              placeholder="minutes"
-            />
-          </div>
-          <div className="mwFormRow">
-            <MwInput
-              className="mwLongInput"
-              containerStyle=""
-              name="Overview"
-              onChange={onRuntimeChange}
-              type="textarea"
-              value=""
-              placeholder="movie description"
-            />
-          </div>
+          <form onSubmit={onSubmitClick}>
+            <div className="mwFormRow">
+              <MwInput
+                id="title"
+                className="mwMiddleInput"
+                containerStyle=""
+                name="title"
+                onChange={handleInputChange}
+                type="text"
+                value={movieItem?.title}
+              />
+              <MwInput
+                id="releaseDate"
+                className="mwShortInput"
+                containerStyle=""
+                name="Release date"
+                onChange={handleInputChange}
+                type="date"
+                value={movieItem?.releaseDate}
+              />
+            </div>
+            <div className="mwFormRow">
+              <MwInput
+                id="posterPath"
+                className="mwMiddleInput"
+                containerStyle=""
+                name="Movie URL"
+                onChange={handleInputChange}
+                type="text"
+                value={movieItem?.posterPath}
+                placeholder="https://"
+              />
+              <MwInput
+                id="voteAverage"
+                className="mwShortInput"
+                containerStyle=""
+                name="Rating"
+                onChange={handleInputChange}
+                type="string"
+                value={movieItem?.voteAverage.toString()}
+                placeholder="7.8"
+              />
+            </div>
+            <div className="mwFormRow">
+              <MwInput
+                id="genres"
+                className="mwMiddleInput"
+                containerStyle=""
+                name="Genre"
+                onChange={handleInputChange}
+                type="text"
+                value={movieItem?.genres.toString()}
+              />
+              <MwInput
+                id="runtime"
+                className="mwShortInput"
+                containerStyle=""
+                name="Runtime"
+                onChange={handleInputChange}
+                type="text"
+                value={movieItem?.runtime.toString()}
+                placeholder="minutes"
+              />
+            </div>
+            <div className="mwFormRow">
+              <MwInput
+                id="overview"
+                className="mwLongInput"
+                containerStyle=""
+                name="Overview"
+                onChange={handleInputChange}
+                type="textarea"
+                value={movieItem?.overview}
+                placeholder="movie description"
+              />
+            </div>
+          </form>
         </div>
         <div className="mwFormFooter">
           <MwButton onClickInternal={props.handleCancelClick} className="mwCancelButton" buttonName="Reset" />
-          <MwButton onClickInternal={onSubmitClick} className="mwSubmitButton" buttonName="Submit" />
+          <MwButton type="submit" onClickInternal={onSubmitClick} className="mwSubmitButton" buttonName="Submit" />
         </div>
       </div>
     </div>

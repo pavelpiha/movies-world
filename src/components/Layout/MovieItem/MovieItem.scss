@@ -1,18 +1,24 @@
 @import '../../../styles/colors.scss';
 
 .mwMovieItem {
-  margin: 10px 10px;
   width: 320px;
   height: 470px;
-  background: $grey-1-color;
-  display: flex;
-  overflow: hidden;
+  margin: 10px 10px;
   position: relative;
-  justify-content: space-between;
-  flex-direction: column;
-  padding-bottom: 10px;
-  font-weight: 500;
-  text-align: left;
+
+  & article {
+    width: 320px;
+    height: 470px;
+    background: $grey-1-color;
+    display: flex;
+    overflow: hidden;
+
+    justify-content: space-between;
+    flex-direction: column;
+    padding-bottom: 10px;
+    font-weight: 500;
+    text-align: left;
+  }
 }
 
 .mwMovieItemImageBlock {

@@ -9,8 +9,8 @@ import MovieSort from './components/Layout/NavigationLayout/MovieSort/MovieSort'
 import NavigationLayout from './components/Layout/NavigationLayout/NavigationLayout';
 import { DATA_LOADING_ERROR } from './constants/constants';
 import MovieDetailsContextProvider from './contexts/MovieDetailsContext';
+import MovieDialogContextProvider from './contexts/MovieDialogContext';
 import MovieItemContextProvider from './contexts/MovieItemContext';
-import SortingContextProvider from './contexts/SortingContext';
 
 import './App.scss';
 import '@fontsource/montserrat';
@@ -27,15 +27,15 @@ function App(): any {
   return (
     <>
       <MovieItemContextProvider>
-        <MovieDetailsContextProvider>
-          <ErrorBoundary>
-            <React.Suspense fallback={<div>Header is Loading...</div>}>
-              <Header handleSubmit={handleSubmit} />
-            </React.Suspense>
-          </ErrorBoundary>
-          <Layout>
-            <ErrorBoundary message={DATA_LOADING_ERROR}>
-              <SortingContextProvider>
+        <MovieDialogContextProvider>
+          <MovieDetailsContextProvider>
+            <ErrorBoundary>
+              <React.Suspense fallback={<div>Header is Loading...</div>}>
+                <Header handleSubmit={handleSubmit} />
+              </React.Suspense>
+            </ErrorBoundary>
+            <Layout>
+              <ErrorBoundary message={DATA_LOADING_ERROR}>
                 <NavigationLayout>
                   <GenreNavigation />
                   <MovieSort />
@@ -43,10 +43,10 @@ function App(): any {
                 <React.Suspense fallback={<div>Loading...</div>}>
                   <MoviesList searchEntry={searchEntry} />
                 </React.Suspense>
-              </SortingContextProvider>
-            </ErrorBoundary>
-          </Layout>
-        </MovieDetailsContextProvider>
+              </ErrorBoundary>
+            </Layout>
+          </MovieDetailsContextProvider>
+        </MovieDialogContextProvider>
       </MovieItemContextProvider>
       <Footer>
         <FooterEmail />

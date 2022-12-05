@@ -9,10 +9,11 @@ export interface MwSimpleModalProps {
   mwSubmitButton?: string;
   className?: string;
   handleCloseDialog: Function;
+  handleSubmitDialog: Function;
 }
 
 const MwSimpleModal = (props: MwSimpleModalProps): JSX.Element => {
-  const { handleCloseDialog } = props;
+  const { handleCloseDialog, handleSubmitDialog } = props;
   const mwSubmitButtonTitle = props.mwSubmitButton ? props.mwSubmitButton : 'Submit';
 
   return (
@@ -23,7 +24,7 @@ const MwSimpleModal = (props: MwSimpleModalProps): JSX.Element => {
         </MwButton>
         <h3>{props.title}</h3>
         <div className="mwSimpleModalMessage">{props.message}</div>
-        <MwButton onClickInternal={handleCloseDialog} buttonName={mwSubmitButtonTitle} className="mwSubmitButton" />
+        <MwButton onClickInternal={handleSubmitDialog} buttonName={mwSubmitButtonTitle} className="mwSubmitButton" />
         <div className="mwSimpleModalSubmit" />
       </div>
     </div>

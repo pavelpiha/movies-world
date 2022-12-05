@@ -11,3 +11,23 @@
   text-transform: uppercase;
   color: $white-color;
 }
+
+.mwFilterButton {
+  padding: 6px;
+  margin: 10px;
+  background-color: $dark-grey-1-color;
+  color: $white-color;
+  border: 0ch;
+  border-radius: 5px;
+  outline: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+  &:hover {
+    background-color: $red-color;
+  }
+}
+
+.mwFilterSelected {
+  background-color: $red-color !important;
+  backdrop-filter: blur(13px);
+}

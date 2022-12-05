@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 
-import { MovieItemProps } from '../components/Layout/MovieItem/MovieItem';
+import { MovieItemModel } from '../models/movieItem';
 
-export const MovieItemContext = React.createContext<[MovieItemProps, Dispatch<SetStateAction<MovieItemProps>>] | null>(
+export const MovieItemContext = React.createContext<[MovieItemModel, Dispatch<SetStateAction<MovieItemModel>>] | null>(
   null
 );
 
