@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { MovieDetailsContext } from '../../../contexts/MovieDetailsContext';
-import { MovieItemContext } from '../../../contexts/MovieItemContext';
+import { useAppSelector } from '../../../redux/store';
 import { SearchIcon } from '../../common/icons/SearchIcon/SearchIcon';
 import MwButton from '../../common/MwButton/MwButton';
 
@@ -9,7 +9,7 @@ import './MovieItemDetails.scss';
 
 const MovieItemDetails = (): JSX.Element => {
   const [, setIsMovieDetailsShown] = useContext(MovieDetailsContext);
-  const [movieItem] = useContext(MovieItemContext);
+  const movieItem = useAppSelector((state) => state.movies.movie);
 
   const onSearchClick = (): void => {
     setIsMovieDetailsShown(false);
@@ -35,7 +35,7 @@ const MovieItemDetails = (): JSX.Element => {
         <div className="mwMovieOverview">{movieItem.overview}</div>
       </div>
       <div className="mwSearchButtonBlock">
-        <MwButton onClickInternal={onSearchClick} className="mwSearchButton">
+        <MwButton onClick={onSearchClick} className="mwSearchButton">
           <SearchIcon className="mwSearchIcon" />
         </MwButton>
       </div>

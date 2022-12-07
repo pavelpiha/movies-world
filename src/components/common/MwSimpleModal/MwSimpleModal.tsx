@@ -8,22 +8,23 @@ export interface MwSimpleModalProps {
   title: string;
   mwSubmitButton?: string;
   className?: string;
-  handleCloseDialog: Function;
+  onClose: Function;
+  onSubmit: Function;
 }
 
 const MwSimpleModal = (props: MwSimpleModalProps): JSX.Element => {
-  const { handleCloseDialog } = props;
+  const { onClose, onSubmit } = props;
   const mwSubmitButtonTitle = props.mwSubmitButton ? props.mwSubmitButton : 'Submit';
 
   return (
     <div className="mwOverlay">
       <div className={props.className ? props.className : 'mwDefaultModalContainer'}>
-        <MwButton onClickInternal={handleCloseDialog} className="mwCloseButton">
+        <MwButton onClick={onClose} className="mwCloseButton">
           <CrossIcon className="mwCloseIcon" />
         </MwButton>
         <h3>{props.title}</h3>
         <div className="mwSimpleModalMessage">{props.message}</div>
-        <MwButton onClickInternal={handleCloseDialog} buttonName={mwSubmitButtonTitle} className="mwSubmitButton" />
+        <MwButton onClick={onSubmit} buttonName={mwSubmitButtonTitle} className="mwSubmitButton" />
         <div className="mwSimpleModalSubmit" />
       </div>
     </div>

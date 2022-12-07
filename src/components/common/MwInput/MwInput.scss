@@ -1,6 +1,8 @@
 @import '../../../styles/colors.scss';
 
-input {
+input,
+textarea {
+  color: $white-color;
   width: 100%;
   height: 36px;
   background: $grey-5-color;
