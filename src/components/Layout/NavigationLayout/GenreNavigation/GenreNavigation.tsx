@@ -1,4 +1,4 @@
-import { GENRE_FILTER } from '../../../../constants/constants';
+import { ALL_FILTERS, GENRE_FILTER } from '../../../../constants/constants';
 import { moviesActions } from '../../../../redux/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../../../redux/store';
 
@@ -7,31 +7,24 @@ import './GenreNavigation.scss';
 const GenreNavigation = (): JSX.Element => {
   const filters = useAppSelector((state) => state.movies.filters);
   const dispatch = useAppDispatch();
-  const allFilters = GENRE_FILTER[0].id;
 
-  let genres = [];
-
-  const initMenuOptions = (): JSX.Element => {
-    GENRE_FILTER.forEach((option) => {
-      genres.push(
-        <button
-          className={`mwFilterButton ${
-            filters.some((filter) => filter === option.value) || (option.id === allFilters && !filters.length)
-              ? 'mwFilterSelected'
-              : ''
-          }`}
-          key={option.id}
-          value={option.id}
-        >
-          {option.id}
-        </button>
-      );
-    });
-    return <>{genres}</>;
-  };
+  const getMenuButton = (): JSX.Element[] =>
+    GENRE_FILTER.map((option) => (
+      <button
+        className={`mwFilterButton ${
+          filters.some((filter) => filter === option.value) || (option.id === ALL_FILTERS && !filters.length)
+            ? 'mwFilterSelected'
+            : ''
+        }`}
+        key={option.id}
+        value={option.id}
+      >
+        {option.id}
+      </button>
+    ));
   const handleMenuItemClick = (event): void => {
     const elementIndex = filters.indexOf(event.target.value);
-    if (event.target.value === allFilters) {
+    if (event.target.value === ALL_FILTERS) {
       dispatch(moviesActions.setFilter([]));
       return;
     }
@@ -43,7 +36,7 @@ const GenreNavigation = (): JSX.Element => {
   };
   return (
     <div className="mwGenresContainer " onClick={handleMenuItemClick}>
-      {initMenuOptions()}
+      {getMenuButton()}
     </div>
   );
 };

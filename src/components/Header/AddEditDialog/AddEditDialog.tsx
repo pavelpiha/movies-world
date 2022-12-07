@@ -27,8 +27,7 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
     const propName = event.target.id;
     let propValue = event.target.value;
     if (propName === 'genres') {
-      const temp: string = event.target.value;
-      propValue = temp.split(',');
+      propValue = propValue.split(',');
     }
     dispatch(moviesActions.setMovie({ ...movieItem, [propName]: propValue }));
   };
@@ -45,7 +44,7 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
   return (
     <div className="mwOverlay">
       <div className="mwAddEditDialog">
-        <MwButton onClickInternal={props.handleCancelClick} className="mwCloseButton">
+        <MwButton onClick={props.handleCancelClick} className="mwCloseButton">
           <CrossIcon className="mwCloseIcon" />
         </MwButton>
         {props.children}
@@ -56,7 +55,6 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
               <MwInput
                 id="title"
                 className="mwMiddleInput"
-                containerStyle=""
                 name="title"
                 onChange={handleInputChange}
                 type="text"
@@ -65,7 +63,6 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
               <MwInput
                 id="releaseDate"
                 className="mwShortInput"
-                containerStyle=""
                 name="Release date"
                 onChange={handleInputChange}
                 type="date"
@@ -76,7 +73,6 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
               <MwInput
                 id="posterPath"
                 className="mwMiddleInput"
-                containerStyle=""
                 name="Movie URL"
                 onChange={handleInputChange}
                 type="text"
@@ -86,7 +82,6 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
               <MwInput
                 id="voteAverage"
                 className="mwShortInput"
-                containerStyle=""
                 name="Rating"
                 onChange={handleInputChange}
                 type="string"
@@ -98,7 +93,6 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
               <MwInput
                 id="genres"
                 className="mwMiddleInput"
-                containerStyle=""
                 name="Genre"
                 onChange={handleInputChange}
                 type="text"
@@ -107,7 +101,6 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
               <MwInput
                 id="runtime"
                 className="mwShortInput"
-                containerStyle=""
                 name="Runtime"
                 onChange={handleInputChange}
                 type="text"
@@ -119,7 +112,6 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
               <MwInput
                 id="overview"
                 className="mwLongInput"
-                containerStyle=""
                 name="Overview"
                 onChange={handleInputChange}
                 type="textarea"
@@ -130,8 +122,8 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
           </form>
         </div>
         <div className="mwFormFooter">
-          <MwButton onClickInternal={props.handleCancelClick} className="mwCancelButton" buttonName="Reset" />
-          <MwButton type="submit" onClickInternal={onSubmitClick} className="mwSubmitButton" buttonName="Submit" />
+          <MwButton onClick={props.handleCancelClick} className="mwCancelButton" buttonName="Reset" />
+          <MwButton onClick={onSubmitClick} className="mwSubmitButton" buttonName="Submit" />
         </div>
       </div>
     </div>

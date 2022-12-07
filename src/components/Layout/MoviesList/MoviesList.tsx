@@ -12,7 +12,7 @@ const MoviesList = (_props: MoviesListProps): JSX.Element => {
   const filters = useAppSelector((state) => state.movies.filters);
   const { data = [] } = api.useGetMoviesQuery({ sortBy, filters });
 
-  if (data) {
+  if (data.length) {
     const card = data.map((movie) => <MovieItem movieItem={movie} key={movie.id} />);
     return <div className="mwMoviesList">{card}</div>;
   } else {

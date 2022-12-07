@@ -28,6 +28,10 @@ export const MwContextualMenu = (props: MwContextualMenuProps): JSX.Element => {
     setIsComponentVisible(true);
   };
 
+  const handleCloseDialog = (): void => {
+    setIsRemoveDialogVisible(false);
+  };
+
   const onSubmitRemove = (): void => {
     deleteMovie(props.movieItem.id);
   };
@@ -35,8 +39,8 @@ export const MwContextualMenu = (props: MwContextualMenuProps): JSX.Element => {
   const removeDialog = (
     <MwSimpleModal
       title="Remove movie?"
-      handleCloseDialog={setIsRemoveDialogVisible}
-      handleSubmitDialog={onSubmitRemove}
+      onClose={handleCloseDialog}
+      onSubmit={onSubmitRemove}
       message="Are you sure you want to delete this movie?"
     />
   );
@@ -66,7 +70,7 @@ export const MwContextualMenu = (props: MwContextualMenuProps): JSX.Element => {
   };
   return (
     <>
-      <MwButton onClickInternal={showModal} className="mwContextualMenuButton">
+      <MwButton onClick={showModal} className="mwContextualMenuButton">
         <MenuDotsIcon className="mwMenuDotsIcon" />
       </MwButton>
       {props.children}

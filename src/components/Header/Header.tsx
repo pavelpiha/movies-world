@@ -40,11 +40,7 @@ const Header = (props: any): JSX.Element => {
       {!isMovieDetailsShown ? (
         <>
           <h1>Movie World </h1>
-          <MwButton
-            onClickInternal={onAddMovieClick}
-            className="addEditDialogButton"
-            buttonName={addButtonTitle}
-          ></MwButton>
+          <MwButton onClick={onAddMovieClick} className="addEditDialogButton" buttonName={addButtonTitle} />
           <SearchContainer handleSubmit={props.handleSubmit} handleIncrement={handleIncrement} />
           <AddEditDialog isCreateMode={isCreateMode} isDialogShown={isMovieDialogShown} handleCancelClick={showModal} />
         </>

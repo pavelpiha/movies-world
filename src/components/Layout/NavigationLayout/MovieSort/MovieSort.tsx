@@ -35,7 +35,7 @@ const MovieSort = (): JSX.Element => {
       <div ref={ref} className="mwDropdown">
         <div className="mwDropdownInput">
           <div className="mwDropdownValue">{sortBy}</div>
-          <MwButton onClickInternal={onDropDownClick} className="mwArrowDownButton">
+          <MwButton onClick={onDropDownClick} className="mwArrowDownButton">
             <ArrowDownIcon className="mwArrowDownIcon" fill={RED_COLOR} />
           </MwButton>
         </div>

@@ -1,7 +1,7 @@
 import './MwButton.scss';
 
 export interface MwButtonProps {
-  onClickInternal: Function;
+  onClick: Function;
   buttonName?: string;
   className?: string;
   children?: JSX.Element;
@@ -9,26 +9,17 @@ export interface MwButtonProps {
 }
 
 const MwButton = (props: MwButtonProps): JSX.Element => {
-  const { children, buttonName, className, onClickInternal } = { ...props };
+  const { type = 'button', children, buttonName, className, onClick } = { ...props };
 
   const handleChange = (): void => {
-    onClickInternal();
+    onClick();
   };
 
   return (
-    <>
-      {props.type ? (
-        <button type={props.type} className={className} onClick={handleChange}>
-          {buttonName}
-          {children}
-        </button>
-      ) : (
-        <button className={className} onClick={handleChange}>
-          {buttonName}
-          {children}
-        </button>
-      )}
-    </>
+    <button type={type} className={className} onClick={handleChange}>
+      {buttonName}
+      {children}
+    </button>
   );
 };
 

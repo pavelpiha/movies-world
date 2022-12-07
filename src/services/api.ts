@@ -9,16 +9,12 @@ export const api = createApi({
     getMovies: builder.query<any, { sortBy?: string; filters?: string[] }>({
       query: (arg) => {
         const { sortBy, filters } = arg;
-        if (sortBy && filters?.length) {
-          return `movies/?sortBy=${sortBy}&sortOrder=asc&filter=${filters}`;
-        }
-        if (!sortBy && filters?.length) {
-          return `movies/?sortOrder=asc&filter=${filters}`;
-        }
-        if (sortBy && !filters?.length) {
-          return `movies/?sortBy=${sortBy}&sortOrder=asc`;
-        }
-        return 'movies';
+        const path = 'movies?';
+        const defaultParamsString = 'sortOrder=asc';
+        const searchParams = new URLSearchParams(defaultParamsString);
+        filters?.length ? searchParams.append('filter', filters.join(',')) : undefined;
+        sortBy ? searchParams.append('sortBy', sortBy) : undefined;
+        return path.concat(searchParams.toString());
       },
       providesTags: ['Movies'],
       transformResponse: (response: { data: MovieItemModel[] }) =>

@@ -35,7 +35,7 @@ const MovieItemDetails = (): JSX.Element => {
         <div className="mwMovieOverview">{movieItem.overview}</div>
       </div>
       <div className="mwSearchButtonBlock">
-        <MwButton onClickInternal={onSearchClick} className="mwSearchButton">
+        <MwButton onClick={onSearchClick} className="mwSearchButton">
           <SearchIcon className="mwSearchIcon" />
         </MwButton>
       </div>

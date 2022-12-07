@@ -26,3 +26,5 @@ export const GENRE_FILTER = [
   { id: 'Horror', value: 'Horror' },
   { id: 'Comedy', value: 'Comedy' },
 ];
+
+export const ALL_FILTERS = GENRE_FILTER[0].id;
