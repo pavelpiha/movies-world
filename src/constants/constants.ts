@@ -12,7 +12,6 @@ export const MOVIE_CONTEXT_MENU_OPTIONS = [
 ];
 
 export const GENRE_OPTIONS = [
-  { label: 'Select genre', value: '' },
   { label: 'Crime', value: 'Crime' },
   { label: 'Documentary', value: 'Documentary' },
   { label: 'Horror', value: 'Horror' },

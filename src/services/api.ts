@@ -44,7 +44,7 @@ export const api = createApi({
           body,
         };
       },
-      invalidatesTags: (movie) => [{ type: 'Movies', id: movie.id }],
+      invalidatesTags: [{ type: 'Movies' }],
     }),
     deleteMovie: builder.mutation<{ success: boolean; id: number }, number>({
       query(id) {

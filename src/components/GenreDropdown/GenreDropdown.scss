@@ -1,7 +1,10 @@
+@import '../Header/AddEditDialog/AddEditDialog.scss';
+
 .genreDropdown {
-  width: 30%;
+  width: 50%;
   select {
     width: 100%;
+    height: 50px;
     color: #323232;
     mix-blend-mode: normal;
     opacity: 0.8;
