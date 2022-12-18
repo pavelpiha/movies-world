@@ -12,6 +12,16 @@ import { GenreDropdown } from '../../GenreDropdown/GenreDropdown';
 
 import './AddEditDialog.scss';
 
+const validationSchema = Yup.object({
+  title: Yup.string().max(30, 'Must be 30 characters or less').required('Required'),
+  posterPath: Yup.string().required('Required'),
+  overview: Yup.string().required('Required'),
+  releaseDate: Yup.date().required('Required'),
+  genres: Yup.array().min(1).required('Required'),
+  voteAverage: Yup.number().max(10, 'Must be 10 characters or less'),
+  runtime: Yup.number().min(1, 'Must be positive integer').max(5, 'Must be 5 characters or less').required('Required'),
+});
+
 export interface AddEditDialogProps {
   isDialogShown: boolean;
   handleCancelClick: Function;
@@ -50,28 +60,9 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
 
         <div className="mwFormTitle">{title}</div>
         <Formik
-          initialValues={{
-            title: movieItem?.title,
-            posterPath: movieItem?.posterPath,
-            overview: movieItem?.overview,
-            genres: movieItem?.genres,
-            releaseDate: movieItem?.releaseDate,
-            voteAverage: movieItem?.voteAverage,
-            runtime: movieItem?.runtime,
-          }}
-          validationSchema={Yup.object({
-            title: Yup.string().max(30, 'Must be 30 characters or less').required('Required'),
-            posterPath: Yup.string().required('Required'),
-            overview: Yup.string().required('Required'),
-            releaseDate: Yup.date().required('Required'),
-            genres: Yup.array().min(1).required('Required'),
-            voteAverage: Yup.number().max(10, 'Must be 10 characters or less'),
-            runtime: Yup.number()
-              .min(1, 'Must be positive integer')
-              .max(5, 'Must be 5 characters or less')
-              .required('Required'),
-          })}
-          onSubmit={(values) => onSubmitClick(values)}
+          initialValues={{ ...(movieItem ? movieItem : {}) }}
+          validationSchema={validationSchema}
+          onSubmit={onSubmitClick}
         >
           {(formikProps: FormikProps<any>) => (
             <>
