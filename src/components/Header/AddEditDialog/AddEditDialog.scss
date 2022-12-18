@@ -62,3 +62,28 @@
   justify-content: space-between;
   padding: 10px;
 }
+
+.mwInputTitle {
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: $red-color;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+}
+
+.mwError {
+  align-self: baseline;
+  color: $red-color;
+  font-size: 10px;
+}
+
+.mwInputContainer {
+  display: flex;
+  flex-direction: column;
+  height: 46px;
+  width: 100%;
+}

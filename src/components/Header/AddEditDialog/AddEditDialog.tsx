@@ -1,11 +1,26 @@
+import { Form, Formik, FormikProps } from 'formik';
+import * as Yup from 'yup';
+
+import { MovieItemModel } from '../../../models/movieItem';
 import { moviesActions } from '../../../redux/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { api } from '../../../services/api';
 import { CrossIcon } from '../../common/icons/CrossIcon/CrossIcon';
 import MwButton from '../../common/MwButton/MwButton';
 import MwInput from '../../common/MwInput/MwInput';
+import { GenreDropdown } from '../../GenreDropdown/GenreDropdown';
 
 import './AddEditDialog.scss';
+
+const validationSchema = Yup.object({
+  title: Yup.string().max(30, 'Must be 30 characters or less').required('Required'),
+  posterPath: Yup.string().required('Required'),
+  overview: Yup.string().required('Required'),
+  releaseDate: Yup.date().required('Required'),
+  genres: Yup.array().min(1).required('Required'),
+  voteAverage: Yup.number().max(10, 'Must be 10 characters or less'),
+  runtime: Yup.number().min(1, 'Must be positive integer').max(5, 'Must be 5 characters or less').required('Required'),
+});
 
 export interface AddEditDialogProps {
   isDialogShown: boolean;
@@ -23,22 +38,16 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
     return null;
   }
 
-  const handleInputChange = (event: any): void => {
-    const propName = event.target.id;
-    let propValue = event.target.value;
-    if (propName === 'genres') {
-      propValue = propValue.split(',');
-    }
-    dispatch(moviesActions.setMovie({ ...movieItem, [propName]: propValue }));
-  };
-
-  const onSubmitClick = (): void => {
-    if (props.isCreateMode) {
-      createMovie(movieItem);
-    } else {
-      updateMovie(movieItem);
-    }
-    props.handleCancelClick();
+  const onSubmitClick = (movie: MovieItemModel): void => {
+    dispatch(moviesActions.setMovie({ id: movieItem.id, ...movie }));
+    setTimeout(() => {
+      if (props.isCreateMode) {
+        createMovie(movieItem);
+      } else {
+        updateMovie(movieItem);
+      }
+      props.handleCancelClick();
+    }, 0);
   };
 
   return (
@@ -48,83 +57,70 @@ export const AddEditDialog = (props: AddEditDialogProps): JSX.Element => {
           <CrossIcon className="mwCloseIcon" />
         </MwButton>
         {props.children}
+
         <div className="mwFormTitle">{title}</div>
-        <div className="mwFormBody">
-          <form onSubmit={onSubmitClick}>
-            <div className="mwFormRow">
-              <MwInput
-                id="title"
-                className="mwMiddleInput"
-                name="title"
-                onChange={handleInputChange}
-                type="text"
-                value={movieItem?.title}
-              />
-              <MwInput
-                id="releaseDate"
-                className="mwShortInput"
-                name="Release date"
-                onChange={handleInputChange}
-                type="date"
-                value={movieItem?.releaseDate}
-              />
-            </div>
-            <div className="mwFormRow">
-              <MwInput
-                id="posterPath"
-                className="mwMiddleInput"
-                name="Movie URL"
-                onChange={handleInputChange}
-                type="text"
-                value={movieItem?.posterPath}
-                placeholder="https://"
-              />
-              <MwInput
-                id="voteAverage"
-                className="mwShortInput"
-                name="Rating"
-                onChange={handleInputChange}
-                type="string"
-                value={movieItem?.voteAverage.toString()}
-                placeholder="7.8"
-              />
-            </div>
-            <div className="mwFormRow">
-              <MwInput
-                id="genres"
-                className="mwMiddleInput"
-                name="Genre"
-                onChange={handleInputChange}
-                type="text"
-                value={movieItem?.genres.toString()}
-              />
-              <MwInput
-                id="runtime"
-                className="mwShortInput"
-                name="Runtime"
-                onChange={handleInputChange}
-                type="text"
-                value={movieItem?.runtime.toString()}
-                placeholder="minutes"
-              />
-            </div>
-            <div className="mwFormRow">
-              <MwInput
-                id="overview"
-                className="mwLongInput"
-                name="Overview"
-                onChange={handleInputChange}
-                type="textarea"
-                value={movieItem?.overview}
-                placeholder="movie description"
-              />
-            </div>
-          </form>
-        </div>
-        <div className="mwFormFooter">
-          <MwButton onClick={props.handleCancelClick} className="mwCancelButton" buttonName="Reset" />
-          <MwButton onClick={onSubmitClick} className="mwSubmitButton" buttonName="Submit" />
-        </div>
+        <Formik
+          initialValues={{ ...(movieItem ? movieItem : {}) }}
+          validationSchema={validationSchema}
+          onSubmit={onSubmitClick}
+        >
+          {(formikProps: FormikProps<any>) => (
+            <>
+              <Form onSubmit={formikProps.handleSubmit}>
+                <div className="mwFormBody">
+                  <div className="mwFormRow">
+                    <MwInput className="mwMiddleInput" name="title" label="title" type="text" />
+                    <MwInput className="mwShortInput" name="releaseDate" label="Release Date" type="date" />
+                  </div>
+                  <div className="mwFormRow">
+                    <MwInput
+                      name="posterPath"
+                      className="mwMiddleInput"
+                      label="Movie URL"
+                      type="text"
+                      placeholder="https://"
+                    />
+                    <MwInput
+                      name="voteAverage"
+                      className="mwShortInput"
+                      label="Rating"
+                      type="string"
+                      placeholder="7.8"
+                    />
+                  </div>
+                  <div className="mwFormRow">
+                    <GenreDropdown className="mwMiddleInput" name="genres" label="Genre" />
+                    <MwInput
+                      name="runtime"
+                      className="mwShortInput"
+                      label="Runtime"
+                      type="text"
+                      placeholder="minutes"
+                    />
+                  </div>
+                  <div className="mwFormRow">
+                    <MwInput
+                      name="overview"
+                      className="mwLongInput"
+                      label="Overview"
+                      type="textarea"
+                      placeholder="movie description"
+                    />
+                  </div>
+                </div>
+                <div className="mwFormFooter">
+                  <MwButton onClick={props.handleCancelClick} className="mwCancelButton" buttonName="Reset" />
+                  <MwButton
+                    type="submit"
+                    onClick={formikProps.handleSubmit}
+                    className="mwSubmitButton"
+                    buttonName="Submit"
+                  />
+                </div>
+              </Form>
+            </>
+          )}
+        </Formik>
       </div>
     </div>
   );

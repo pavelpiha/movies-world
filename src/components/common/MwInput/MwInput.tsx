@@ -1,38 +1,32 @@
 import React, { ChangeEventHandler } from 'react';
+import { useField } from 'formik';
 
 import './MwInput.scss';
 
 export interface MwInputProps {
-  id: string;
   className: string;
   name: string;
-  onChange: ChangeEventHandler;
+  label: string;
+  onChange?: ChangeEventHandler;
   type: string;
-  value: string;
+  value?: string;
   placeholder?: string;
-  error?: string;
 }
 
 const MwInput = (props: MwInputProps): JSX.Element => {
+  const [field, meta] = useField(props);
   const { type, ...restProps } = props;
-  const inputRef = React.useRef(null);
-
-  const commonProps = {
-    tabIndex: 0,
-    ref: inputRef,
-  };
-
-  const onClick = (): void => {
-    inputRef?.current?.focus();
-  };
-
   return (
     <div className={props.className}>
-      <div className="mwInputTitle">{props.name}</div>
-      <div onClick={onClick} className="mwInputContainer">
-        {type === 'textarea' ? <textarea {...restProps} {...commonProps} /> : <input {...restProps} {...commonProps} />}
+      <div className="mwInputTitle">{props.label}</div>
+      <div className="mwInputContainer">
+        {type === 'textarea' ? (
+          <textarea {...field} {...restProps} />
+        ) : (
+          <input onChange={props.onChange} {...field} {...restProps} />
+        )}
+        {meta.touched && meta.error ? <div className="mwError">{meta.error}</div> : null}
       </div>
-      <div className="mwInputError">{props.error}</div>
     </div>
   );
 };

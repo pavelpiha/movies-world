@@ -1,4 +1,5 @@
 @import '../../../styles/colors.scss';
+@import '../../Header/AddEditDialog/AddEditDialog.scss';
 
 input,
 textarea {
@@ -13,12 +14,12 @@ textarea {
 .mwMiddleInput {
   display: inline-flex;
   flex-flow: column wrap;
-  width: 60%;
+  align-items: flex-start;
+  width: 70%;
 }
 .mwShortInput {
   display: inline-flex;
   flex-flow: column wrap;
-  width: 35%;
 }
 .mwLongInput {
   display: inline-flex;
@@ -27,16 +28,4 @@ textarea {
   & input {
     height: 150px;
   }
-}
-
-.mwInputTitle {
-  align-self: flex-start;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.888889px;
-  text-transform: uppercase;
-  color: $red-color;
-  mix-blend-mode: normal;
-  opacity: 0.8;
 }

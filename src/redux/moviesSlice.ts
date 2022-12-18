@@ -5,7 +5,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState = {
   movie: new MovieItemModel(),
   movies: [],
-  sortBy: 'title',
+  sortBy: 'release date',
   filters: [],
 } as { movie: MovieItemModel | null; movies: MovieItemModel[]; sortBy: string; filters: string[] };
 
