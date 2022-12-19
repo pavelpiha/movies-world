@@ -6,14 +6,16 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
   tagTypes: ['Movies'],
   endpoints: (builder) => ({
-    getMovies: builder.query<any, { sortBy?: string; filters?: string[] }>({
+    getMovies: builder.query<any, { movieId?: string; searchEntry?: string; sortBy?: string; filters?: string[] }>({
       query: (arg) => {
-        const { sortBy, filters } = arg;
+        const { searchEntry, sortBy, filters } = arg;
         const path = 'movies?';
         const defaultParamsString = 'sortOrder=asc';
         const searchParams = new URLSearchParams(defaultParamsString);
         filters?.length ? searchParams.append('filter', filters.join(',')) : undefined;
         sortBy ? searchParams.append('sortBy', sortBy) : undefined;
+        searchEntry ? searchParams.append('search', searchEntry) : undefined;
+        searchParams.append('searchBy', 'title');
         return path.concat(searchParams.toString());
       },
       providesTags: ['Movies'],
@@ -22,7 +24,7 @@ export const api = createApi({
     }),
     getMovieById: builder.query({
       query: (id: string | number) => `movies/${id}`,
-      transformResponse: (response: { data: MovieItemModel }) => MovieItemModel.fromJSON(response.data),
+      transformResponse: (response: MovieItemModel) => MovieItemModel.fromJSON(response),
     }),
     createMovie: builder.mutation<MovieItemModel, Omit<MovieItemModel, 'id'>>({
       query(data) {

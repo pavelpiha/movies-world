@@ -1,18 +1,26 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-function SearchContainer({ handleIncrement, handleSubmit }: any): JSX.Element {
-  const [searchEntry, setSearchEntry] = useState('');
+export type SearchParams = {
+  searchValue: string;
+};
+function SearchContainer(): JSX.Element {
+  let { searchValue } = useParams<SearchParams>();
+  const [searchEntry, setSearchEntry] = useState(searchValue);
   const updateSearchInput = (event: any): void => {
-    setSearchEntry(event.target.value);
+    setSearchEntry(event?.target?.value);
   };
+  const location = useLocation();
+  const history = useHistory();
+  const queryParams = new URLSearchParams(location.search);
 
   function updateSearch(event): void {
     event.preventDefault();
-    handleIncrement();
-    handleSubmit(searchEntry);
+    history.replace({
+      pathname: `/search/${searchEntry}`,
+      search: queryParams.toString(),
+    });
   }
-
   return (
     <form className="searchContainer" onSubmit={updateSearch}>
       <input
@@ -29,10 +37,5 @@ function SearchContainer({ handleIncrement, handleSubmit }: any): JSX.Element {
     </form>
   );
 }
-
-SearchContainer.propTypes = {
-  handleIncrement: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-};
 
 export default SearchContainer;

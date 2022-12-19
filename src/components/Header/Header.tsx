@@ -1,22 +1,29 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { AddEditDialog } from './AddEditDialog/AddEditDialog';
+import { MOVIE_DETAILS } from '../../constants/constants';
 import { MovieDetailsContext } from '../../contexts/MovieDetailsContext';
 import { MovieDialogContext } from '../../contexts/MovieDialogContext';
 import { MovieItemModel } from '../../models/movieItem';
 import { moviesActions } from '../../redux/moviesSlice';
 import { useAppDispatch } from '../../redux/store';
+import { api } from '../../services/api';
+import { useQuery } from '../common/hooks/useQuery';
 import MwButton from '../common/MwButton/MwButton';
 import MovieItemDetails from '../Layout/MovieItemDetails/MovieItemDetails';
 import SearchContainer from '../SearchContainer/SearchContainer';
 
-const Header = (props: any): JSX.Element => {
+import { skipToken } from '@reduxjs/toolkit/query';
+
+const Header = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const [isMovieDialogShown, setIsMovieDialogShown] = useContext(MovieDialogContext);
   const [isCreateMode, setIsCreateMode] = useState(false);
   const [isMovieDetailsShown] = useContext(MovieDetailsContext);
-  const [isMovieDialogShown, setIsMovieDialogShown] = useContext(MovieDialogContext);
-  const [searchedTimes, setSearchedTimes] = useState(0);
-  const dispatch = useAppDispatch();
   const addButtonTitle = '+ Add Movie';
+  const [, setIsMovieDetailsShown] = useContext(MovieDetailsContext);
+  const query: URLSearchParams = useQuery();
+  const movieQueryParameter: string = query.get(MOVIE_DETAILS);
 
   const showModal = (): void => {
     setIsMovieDialogShown(!isMovieDialogShown);
@@ -29,11 +36,14 @@ const Header = (props: any): JSX.Element => {
     showModal();
   };
 
-  const handleIncrement = (): void => {
-    let incrementedSearchedTimes = searchedTimes;
-    incrementedSearchedTimes++;
-    setSearchedTimes(incrementedSearchedTimes);
-  };
+  const { data } = api.useGetMovieByIdQuery(movieQueryParameter ? movieQueryParameter : skipToken);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(moviesActions.setMovie(data));
+      setIsMovieDetailsShown(true);
+    }
+  }, [data, dispatch, setIsMovieDetailsShown]);
 
   return (
     <header className="headerContainer">
@@ -41,7 +51,7 @@ const Header = (props: any): JSX.Element => {
         <>
           <h1>Movie World </h1>
           <MwButton onClick={onAddMovieClick} className="addEditDialogButton" buttonName={addButtonTitle} />
-          <SearchContainer handleSubmit={props.handleSubmit} handleIncrement={handleIncrement} />
+          <SearchContainer />
           <AddEditDialog isCreateMode={isCreateMode} isDialogShown={isMovieDialogShown} handleCancelClick={showModal} />
         </>
       ) : (

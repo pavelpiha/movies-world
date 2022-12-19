@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
+import ErrorPage from './components/ErrorPage/ErrorPage';
 import { store } from './redux/store';
 import App from './App';
 
@@ -14,6 +16,16 @@ const main = React.createElement('div', { className: 'mainContainer' }, appEleme
 
 root.render(
   <Provider store={store}>
-    <React.StrictMode>{main}</React.StrictMode>
+    <React.StrictMode>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact>
+            <Redirect to="/search" />
+          </Route>
+          <Route path={['/search/:searchValue', '/search', '/search/']}>{main}</Route>
+          <Route path="*" component={ErrorPage} />
+        </Switch>
+      </BrowserRouter>
+    </React.StrictMode>
   </Provider>
 );
