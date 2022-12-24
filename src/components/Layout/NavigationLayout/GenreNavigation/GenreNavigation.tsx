@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { ALL_FILTERS, FILTER_BY, GENRE_FILTER } from '../../../../constants/constants';
 import { moviesActions } from '../../../../redux/moviesSlice';
@@ -11,18 +11,8 @@ import './GenreNavigation.scss';
 const GenreNavigation = (): JSX.Element => {
   const query = useQuery();
   const genreFilterValue: string = query.get(FILTER_BY);
-  const getFilters = (): string[] => {
-    let appliedFilters = [];
-    if (genreFilterValue?.toLowerCase().split(',')) {
-      appliedFilters = genreFilterValue?.toLowerCase().split(',');
-    }
-    return appliedFilters;
-  };
-
-  const [filters, setFilters] = useState(getFilters());
-  const location = useLocation();
+  const [filters, setFilters] = useState(genreFilterValue?.toLowerCase().split(',') || []);
   const history = useHistory();
-  const queryParams = new URLSearchParams(location.search);
   const dispatch = useAppDispatch();
 
   const getMenuButton = (): JSX.Element[] =>
@@ -41,10 +31,9 @@ const GenreNavigation = (): JSX.Element => {
     ));
 
   function updateFilters(newFilters): void {
-    queryParams.delete(FILTER_BY);
-    queryParams.append(FILTER_BY, newFilters);
+    query.set(FILTER_BY, newFilters);
     history.replace({
-      search: queryParams.toString(),
+      search: query.toString(),
     });
     setFilters(newFilters);
   }
@@ -54,19 +43,13 @@ const GenreNavigation = (): JSX.Element => {
     const elementIndex = filters.indexOf(event.target.value);
     if (event.target.value === ALL_FILTERS) {
       newFilters = [];
-      dispatch(moviesActions.setFilter(newFilters));
-      updateFilters(newFilters);
-      return;
-    }
-    if (elementIndex === -1) {
+    } else if (elementIndex === -1) {
       newFilters = filters.concat([event.target.value]);
-      dispatch(moviesActions.setFilter(newFilters));
-      updateFilters(newFilters);
     } else {
       newFilters = filters.filter((filter) => filter !== event.target.value);
-      dispatch(moviesActions.setFilter(newFilters));
-      updateFilters(newFilters);
     }
+    dispatch(moviesActions.setFilter(newFilters));
+    updateFilters(newFilters);
   };
   return (
     <div className="mwGenresContainer " onClick={handleMenuItemClick}>

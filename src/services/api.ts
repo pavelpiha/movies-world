@@ -2,11 +2,18 @@ import { MovieItemModel } from '../models/movieItem';
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+interface ApiProps {
+  movieId?: string;
+  searchEntry?: string;
+  sortBy?: string;
+  filters?: string[];
+}
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
   tagTypes: ['Movies'],
   endpoints: (builder) => ({
-    getMovies: builder.query<any, { movieId?: string; searchEntry?: string; sortBy?: string; filters?: string[] }>({
+    getMovies: builder.query<any, ApiProps>({
       query: (arg) => {
         const { searchEntry, sortBy, filters } = arg;
         const path = 'movies?';

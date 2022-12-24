@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+
+import { useQuery } from '../common/hooks/useQuery';
 
 export type SearchParams = {
   searchValue: string;
@@ -7,12 +9,11 @@ export type SearchParams = {
 function SearchContainer(): JSX.Element {
   let { searchValue } = useParams<SearchParams>();
   const [searchEntry, setSearchEntry] = useState(searchValue);
-  const updateSearchInput = (event: any): void => {
+  const updateSearchInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchEntry(event?.target?.value);
   };
-  const location = useLocation();
   const history = useHistory();
-  const queryParams = new URLSearchParams(location.search);
+  const queryParams: URLSearchParams = useQuery();
 
   function updateSearch(event): void {
     event.preventDefault();

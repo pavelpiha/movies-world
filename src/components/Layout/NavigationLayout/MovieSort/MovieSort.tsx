@@ -13,9 +13,8 @@ import './MovieSort.scss';
 
 const MovieSort = (): JSX.Element => {
   const query = useQuery();
-  const sortByValue = query.get(SORT_BY);
   const [ref, isComponentVisible, setIsComponentVisible] = useComponentVisible(false, false);
-  const [sortBy, setSortBy] = useState(sortByValue);
+  const [sortBy, setSortBy] = useState(query.get(SORT_BY));
   const history = useHistory();
   const dispatch = useAppDispatch();
   const onDropDownClick = (): void => {
@@ -23,8 +22,7 @@ const MovieSort = (): JSX.Element => {
   };
 
   const handleMenuItemClick = (event): void => {
-    query.delete(SORT_BY);
-    query.append(SORT_BY, event.target.value);
+    query.set(SORT_BY, event.target.value);
     history.replace({
       search: query.toString(),
     });

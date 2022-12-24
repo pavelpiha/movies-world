@@ -16,9 +16,7 @@ const MoviesList = (): JSX.Element => {
   const genreFilterValue: string = query.get(FILTER_BY);
   const sortBy: string = query.get(SORT_BY);
   const filters = genreFilterValue?.toLowerCase().split(',');
-  const searchEntry = searchValue;
-
-  const { data = [] } = api.useGetMoviesQuery({ searchEntry, sortBy, filters });
+  const { data = [] } = api.useGetMoviesQuery({ searchEntry: searchValue, sortBy, filters });
 
   if (data.length) {
     const card = data.map((movie) => <MovieItem movieItem={movie} key={movie.id} />);
