@@ -9,6 +9,7 @@ module.exports = {
   output: {
     filename: '[name].chunk.js',
     chunkFilename: '[name].chunk.js',
+    publicPath: '/',
     path: helpers.root('dev'),
   },
   resolve: {
@@ -17,6 +18,7 @@ module.exports = {
   },
   watch: true,
   devServer: {
+    historyApiFallback: true,
     static: {
       directory: helpers.root('dev'),
     },
@@ -71,7 +73,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', ['@babel/preset-react', , '@babel/preset-typescript']],
+            presets: ['@babel/preset-env', ['@babel/preset-react', '@babel/preset-typescript']],
           },
         },
       },

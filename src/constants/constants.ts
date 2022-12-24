@@ -1,6 +1,10 @@
 export const DATA_LOADING_ERROR = 'There is some problem with loading data';
 export const RED_COLOR = '#f65261';
 
+export const SORT_BY = 'sortBy';
+export const FILTER_BY = 'filter';
+export const MOVIE_DETAILS = 'movie';
+
 export const SORT_OPTIONS = [
   { id: 'release date', name: 'Release date' },
   { id: 'title', name: 'Title' },
@@ -12,18 +16,18 @@ export const MOVIE_CONTEXT_MENU_OPTIONS = [
 ];
 
 export const GENRE_OPTIONS = [
-  { label: 'Crime', value: 'Crime' },
-  { label: 'Documentary', value: 'Documentary' },
-  { label: 'Horror', value: 'Horror' },
-  { label: 'Comedy', value: 'Comedy' },
+  { label: 'Crime', value: 'crime' },
+  { label: 'Documentary', value: 'documentary' },
+  { label: 'Horror', value: 'horror' },
+  { label: 'Comedy', value: 'comedy' },
 ];
 
 export const GENRE_FILTER = [
-  { id: 'All', value: 'All' },
-  { id: 'Crime', value: 'Crime' },
-  { id: 'Documentary', value: 'Documentary' },
-  { id: 'Horror', value: 'Horror' },
-  { id: 'Comedy', value: 'Comedy' },
+  { id: 'all', value: 'all' },
+  { id: 'crime', value: 'crime' },
+  { id: 'documentary', value: 'documentary' },
+  { id: 'horror', value: 'horror' },
+  { id: 'comedy', value: 'comedy' },
 ];
 
 export const ALL_FILTERS = GENRE_FILTER[0].id;

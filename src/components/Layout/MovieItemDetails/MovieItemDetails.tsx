@@ -1,19 +1,29 @@
 import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
+import { MOVIE_DETAILS } from '../../../constants/constants';
 import { MovieDetailsContext } from '../../../contexts/MovieDetailsContext';
 import { useAppSelector } from '../../../redux/store';
+import { useQuery } from '../../common/hooks/useQuery';
 import { SearchIcon } from '../../common/icons/SearchIcon/SearchIcon';
 import MwButton from '../../common/MwButton/MwButton';
 
 import './MovieItemDetails.scss';
 
 const MovieItemDetails = (): JSX.Element => {
+  const query: URLSearchParams = useQuery();
+  const history = useHistory();
   const [, setIsMovieDetailsShown] = useContext(MovieDetailsContext);
   const movieItem = useAppSelector((state) => state.movies.movie);
 
   const onSearchClick = (): void => {
+    query.delete(MOVIE_DETAILS);
+    history.replace({
+      search: query.toString(),
+    });
     setIsMovieDetailsShown(false);
   };
+
   if (!movieItem) {
     return null;
   }

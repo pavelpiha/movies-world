@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import Footer from './components/Footer/Footer';
@@ -19,11 +19,6 @@ const MoviesList = React.lazy(() => import('./components/Layout/MoviesList/Movie
 const Header = React.lazy(() => import('./components/Header/Header'));
 
 function App(): any {
-  const [searchEntry, setSearchEntry] = useState('');
-  const handleSubmit = (searchInput: string): void => {
-    setSearchEntry(searchInput);
-  };
-
   return (
     <>
       <MovieItemContextProvider>
@@ -31,7 +26,7 @@ function App(): any {
           <MovieDetailsContextProvider>
             <ErrorBoundary>
               <React.Suspense fallback={<div>Header is Loading...</div>}>
-                <Header handleSubmit={handleSubmit} />
+                <Header />
               </React.Suspense>
             </ErrorBoundary>
             <Layout>
@@ -41,7 +36,7 @@ function App(): any {
                   <MovieSort />
                 </NavigationLayout>
                 <React.Suspense fallback={<div>Loading...</div>}>
-                  <MoviesList searchEntry={searchEntry} />
+                  <MoviesList />
                 </React.Suspense>
               </ErrorBoundary>
             </Layout>

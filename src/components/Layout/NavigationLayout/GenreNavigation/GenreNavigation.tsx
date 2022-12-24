@@ -1,11 +1,18 @@
-import { ALL_FILTERS, GENRE_FILTER } from '../../../../constants/constants';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { ALL_FILTERS, FILTER_BY, GENRE_FILTER } from '../../../../constants/constants';
 import { moviesActions } from '../../../../redux/moviesSlice';
-import { useAppDispatch, useAppSelector } from '../../../../redux/store';
+import { useAppDispatch } from '../../../../redux/store';
+import { useQuery } from '../../../common/hooks/useQuery';
 
 import './GenreNavigation.scss';
 
 const GenreNavigation = (): JSX.Element => {
-  const filters = useAppSelector((state) => state.movies.filters);
+  const query = useQuery();
+  const genreFilterValue: string = query.get(FILTER_BY);
+  const [filters, setFilters] = useState(genreFilterValue?.toLowerCase().split(',') || []);
+  const history = useHistory();
   const dispatch = useAppDispatch();
 
   const getMenuButton = (): JSX.Element[] =>
@@ -22,17 +29,27 @@ const GenreNavigation = (): JSX.Element => {
         {option.id}
       </button>
     ));
+
+  function updateFilters(newFilters): void {
+    query.set(FILTER_BY, newFilters);
+    history.replace({
+      search: query.toString(),
+    });
+    setFilters(newFilters);
+  }
+
   const handleMenuItemClick = (event): void => {
+    let newFilters;
     const elementIndex = filters.indexOf(event.target.value);
     if (event.target.value === ALL_FILTERS) {
-      dispatch(moviesActions.setFilter([]));
-      return;
-    }
-    if (elementIndex === -1) {
-      dispatch(moviesActions.setFilter(filters.concat([event.target.value])));
+      newFilters = [];
+    } else if (elementIndex === -1) {
+      newFilters = filters.concat([event.target.value]);
     } else {
-      dispatch(moviesActions.setFilter(filters.filter((filter) => filter !== event.target.value)));
+      newFilters = filters.filter((filter) => filter !== event.target.value);
     }
+    dispatch(moviesActions.setFilter(newFilters));
+    updateFilters(newFilters);
   };
   return (
     <div className="mwGenresContainer " onClick={handleMenuItemClick}>

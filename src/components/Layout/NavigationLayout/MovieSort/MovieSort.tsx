@@ -1,22 +1,33 @@
-import { RED_COLOR, SORT_OPTIONS } from '../../../../constants/constants';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { RED_COLOR, SORT_BY, SORT_OPTIONS } from '../../../../constants/constants';
 import { moviesActions } from '../../../../redux/moviesSlice';
-import { useAppDispatch, useAppSelector } from '../../../../redux/store';
+import { useAppDispatch } from '../../../../redux/store';
 import useComponentVisible from '../../../common/hooks/useComponentVisible';
+import { useQuery } from '../../../common/hooks/useQuery';
 import { ArrowDownIcon } from '../../../common/icons/ArrowDownIcon/ArrowDownIcon';
 import MwButton from '../../../common/MwButton/MwButton';
 
 import './MovieSort.scss';
 
 const MovieSort = (): JSX.Element => {
+  const query = useQuery();
   const [ref, isComponentVisible, setIsComponentVisible] = useComponentVisible(false, false);
-  const sortBy = useAppSelector((state) => state.movies.sortBy);
+  const [sortBy, setSortBy] = useState(query.get(SORT_BY));
+  const history = useHistory();
   const dispatch = useAppDispatch();
-
   const onDropDownClick = (): void => {
     setIsComponentVisible(!isComponentVisible);
   };
 
   const handleMenuItemClick = (event): void => {
+    query.set(SORT_BY, event.target.value);
+    history.replace({
+      search: query.toString(),
+    });
+    setSortBy(event.target.value);
+    setIsComponentVisible(!isComponentVisible);
     dispatch(moviesActions.setSorting(event.target.value));
   };
 

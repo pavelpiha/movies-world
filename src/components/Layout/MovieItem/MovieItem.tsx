@@ -2,6 +2,8 @@ import { useContext } from 'react';
 
 import { MovieDetailsContext } from '../../../contexts/MovieDetailsContext';
 import { MovieItemModel } from '../../../models/movieItem';
+import { moviesActions } from '../../../redux/moviesSlice';
+import { useAppDispatch } from '../../../redux/store';
 import { MwContextualMenu } from '../../common/MwContextualMenu/MwContextualMenu';
 
 import './MovieItem.scss';
@@ -10,8 +12,10 @@ export interface MovieItemProps {
   movieItem: MovieItemModel;
 }
 export const MovieItem = (props: MovieItemProps): JSX.Element => {
+  const dispatch = useAppDispatch();
   const [, setIsMovieDetailsShown] = useContext(MovieDetailsContext);
   const onMovieItemClick = (): void => {
+    dispatch(moviesActions.setMovie(props.movieItem));
     setIsMovieDetailsShown(true);
   };
 
