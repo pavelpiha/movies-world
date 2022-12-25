@@ -1,0 +1,4 @@
+{
+  "testEnvironment": "jsdom",
+  "testRegex": "((\\.|/*.)(spec))\\.(js|ts)?$"
+}
