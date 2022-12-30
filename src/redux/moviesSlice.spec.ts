@@ -25,7 +25,7 @@ describe('Movies reducer', () => {
     expect(moviesReducer(initialState, action)).toEqual(expectedState);
   });
 
-  test('should add to favorites', () => {
+  test('should handle filtering', () => {
     const initialState: MoviesState = { ...state, filters: [] };
     const action = moviesActions.setFilter(['Comedy']);
     const expectedState: MoviesState = { ...state, filters: ['Comedy'] };
@@ -33,10 +33,10 @@ describe('Movies reducer', () => {
     expect(moviesReducer(initialState, action)).toEqual(expectedState);
   });
 
-  test('should remove from favorites', () => {
+  test('should handle setMovie', () => {
     const movie = new MovieItemModel();
     movie.title = 'xxx';
-    const initialState: MoviesState = { ...state, movie: movie };
+    const initialState: MoviesState = { ...state };
     const action = moviesActions.setMovie(movie);
     const expectedState: MoviesState = { ...state, movie: movie };
 
