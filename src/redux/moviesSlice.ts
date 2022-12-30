@@ -2,12 +2,19 @@ import { MovieItemModel } from '../models/movieItem';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+export interface MoviesState {
+  movie: MovieItemModel | null;
+  movies: MovieItemModel[];
+  sortBy: string;
+  filters: string[];
+}
+
+const initialState: MoviesState = {
   movie: new MovieItemModel(),
   movies: [],
   sortBy: 'release date',
   filters: [],
-} as { movie: MovieItemModel | null; movies: MovieItemModel[]; sortBy: string; filters: string[] };
+};
 
 const slice = createSlice({
   name: 'movies',
