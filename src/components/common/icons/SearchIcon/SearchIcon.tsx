@@ -1,7 +1,5 @@
 import { MwIconProps } from '../MwIconProps';
 
-import './SearchIcon.scss';
-
 export const SearchIcon = (props: MwIconProps): JSX.Element => (
   <svg
     fill={props.fill}

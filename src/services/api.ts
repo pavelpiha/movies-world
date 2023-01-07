@@ -1,4 +1,6 @@
-import { MovieItemModel } from '../models/movieItem';
+import { HYDRATE } from 'next-redux-wrapper';
+
+import { fromJSON, MovieItemModel, toJSON } from '../models/movieItem';
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -10,8 +12,14 @@ interface ApiProps {
 }
 
 export const api = createApi({
+  reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
   tagTypes: ['Movies'],
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   endpoints: (builder) => ({
     getMovies: builder.query<any, ApiProps>({
       query: (arg) => {
@@ -26,16 +34,15 @@ export const api = createApi({
         return path.concat(searchParams.toString());
       },
       providesTags: ['Movies'],
-      transformResponse: (response: { data: MovieItemModel[] }) =>
-        response.data.map((item) => MovieItemModel.fromJSON(item)),
+      transformResponse: (response: { data: MovieItemModel[] }) => response.data.map((item) => fromJSON(item)),
     }),
     getMovieById: builder.query({
       query: (id: string | number) => `movies/${id}`,
-      transformResponse: (response: MovieItemModel) => MovieItemModel.fromJSON(response),
+      transformResponse: (response: MovieItemModel) => fromJSON(response),
     }),
     createMovie: builder.mutation<MovieItemModel, Omit<MovieItemModel, 'id'>>({
       query(data) {
-        const { ...body } = MovieItemModel.toJSON(data);
+        const { ...body } = toJSON(data);
         return {
           url: 'movies',
           method: 'POST',
@@ -46,7 +53,7 @@ export const api = createApi({
     }),
     updateMovie: builder.mutation<MovieItemModel, MovieItemModel>({
       query(data) {
-        const { ...body } = MovieItemModel.toJSON(data);
+        const { ...body } = toJSON(data);
         return {
           url: 'movies',
           method: 'PUT',

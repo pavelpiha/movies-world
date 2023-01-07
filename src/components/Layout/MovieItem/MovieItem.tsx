@@ -6,8 +6,6 @@ import { moviesActions } from '../../../redux/moviesSlice';
 import { useAppDispatch } from '../../../redux/store';
 import { MwContextualMenu } from '../../common/MwContextualMenu/MwContextualMenu';
 
-import './MovieItem.scss';
-
 export interface MovieItemProps {
   movieItem: MovieItemModel;
 }

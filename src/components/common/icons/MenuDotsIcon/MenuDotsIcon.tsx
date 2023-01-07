@@ -1,7 +1,5 @@
 import { MwIconProps } from '../MwIconProps';
 
-import './MenuDotsIcon.scss';
-
 export const MenuDotsIcon = (props: MwIconProps): JSX.Element => (
   <svg
     fill={props.fill}

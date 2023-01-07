@@ -1,18 +1,16 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { ALL_FILTERS, FILTER_BY, GENRE_FILTER } from '../../../../constants/constants';
 import { moviesActions } from '../../../../redux/moviesSlice';
 import { useAppDispatch } from '../../../../redux/store';
 import { useQuery } from '../../../common/hooks/useQuery';
 
-import './GenreNavigation.scss';
-
 const GenreNavigation = (): JSX.Element => {
   const query = useQuery();
   const genreFilterValue: string = query.get(FILTER_BY);
   const [filters, setFilters] = useState(genreFilterValue?.toLowerCase().split(',') || []);
-  const history = useHistory();
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const getMenuButton = (): JSX.Element[] =>
@@ -32,9 +30,20 @@ const GenreNavigation = (): JSX.Element => {
 
   function updateFilters(newFilters): void {
     query.set(FILTER_BY, newFilters);
-    history.replace({
-      search: query.toString(),
+    router.replace({
+      query: query.toString(),
     });
+    if (newFilters) {
+      router.replace({
+        query: { ...query, filter: newFilters },
+      });
+    } else {
+      query.delete(FILTER_BY);
+      router.replace({
+        query: { ...query },
+      });
+    }
+
     setFilters(newFilters);
   }
 

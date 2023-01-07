@@ -1,8 +1,6 @@
 import { CrossIcon } from '../icons/CrossIcon/CrossIcon';
 import MwButton from '../MwButton/MwButton';
 
-import './MwSimpleModal.scss';
-
 export interface MwSimpleModalProps {
   message: string;
   title: string;

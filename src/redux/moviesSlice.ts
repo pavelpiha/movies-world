@@ -1,3 +1,5 @@
+import { HYDRATE } from 'next-redux-wrapper';
+
 import { MovieItemModel } from '../models/movieItem';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -10,7 +12,7 @@ export interface MoviesState {
 }
 
 const initialState: MoviesState = {
-  movie: new MovieItemModel(),
+  movie: null,
   movies: [],
   sortBy: 'release date',
   filters: [],
@@ -29,6 +31,12 @@ const slice = createSlice({
     setMovie: (state, action: PayloadAction<MovieItemModel>) => {
       state.movie = action.payload;
     },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => ({
+      ...state,
+      ...action.payload.movies,
+    }),
   },
 });
 

@@ -1,17 +1,17 @@
-@import '../src/styles/colors.scss';
+// @import '../src/styles/colors.scss';
 
-@mixin font {
-  font-family: 'Montserrat';
-  font-style: normal;
-}
+// @mixin font {
+//   font-family: 'Montserrat';
+//   font-style: normal;
+// }
 
-button,
-body {
-  margin: 0;
-  @include font;
-}
+// button,
+// body {
+//   margin: 0;
+//   @include font;
+// }
 
-.mainContainer {
-  background-color: $grey-1-color;
-  height: 100%;
-}
+// .mainContainer {
+//   background-color: $grey-1-color;
+//   height: 100%;
+// }

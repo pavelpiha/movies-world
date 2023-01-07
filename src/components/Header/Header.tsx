@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { AddEditDialog } from './AddEditDialog/AddEditDialog';
 import { MOVIE_DETAILS } from '../../constants/constants';
@@ -25,16 +25,27 @@ const Header = (): JSX.Element => {
   const query: URLSearchParams = useQuery();
   const movieQueryParameter: string = query.get(MOVIE_DETAILS);
 
-  const showModal = (): void => {
+  const showModal = useCallback((): void => {
     setIsMovieDialogShown(!isMovieDialogShown);
-  };
+  }, [setIsMovieDialogShown, isMovieDialogShown]);
 
-  const onAddMovieClick = (): void => {
+  const onAddMovieClick = useCallback(() => {
     setIsCreateMode(true);
 
-    dispatch(moviesActions.setMovie(new MovieItemModel()));
+    const newMovieItem: MovieItemModel = {
+      id: 0,
+      title: '',
+      posterPath: '',
+      overview: '',
+      genres: [],
+      releaseDate: '',
+      voteAverage: 0,
+      runtime: 0,
+    };
+
+    dispatch(moviesActions.setMovie(newMovieItem));
     showModal();
-  };
+  }, [dispatch, showModal]);
 
   const { data } = api.useGetMovieByIdQuery(movieQueryParameter ? movieQueryParameter : skipToken);
 

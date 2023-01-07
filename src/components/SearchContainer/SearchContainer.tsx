@@ -1,25 +1,28 @@
 import { useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
+import { SEARCH_STRING } from '../../constants/constants';
 import { useQuery } from '../common/hooks/useQuery';
 
 export type SearchParams = {
   searchValue: string;
 };
 function SearchContainer(): JSX.Element {
-  let { searchValue } = useParams<SearchParams>();
-  const [searchEntry, setSearchEntry] = useState(searchValue);
+  const queryParams = useQuery();
+  const genreFilterValue: string = queryParams.get(SEARCH_STRING);
+  console.log('genreFilterValue@@@@@@@@@@@@@!!!!!! ', genreFilterValue);
+  let router = useRouter();
+  const { query } = router;
+  const { searchString } = query;
+  const [searchEntry, setSearchEntry] = useState(searchString);
   const updateSearchInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchEntry(event?.target?.value);
   };
-  const history = useHistory();
-  const queryParams: URLSearchParams = useQuery();
-
   function updateSearch(event): void {
     event.preventDefault();
-    history.replace({
-      pathname: `/search/${searchEntry}`,
-      search: queryParams.toString(),
+    router.replace({
+      pathname: '/search/[searchString]',
+      query: { ...query, searchString: searchEntry },
     });
   }
   return (

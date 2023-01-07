@@ -11,8 +11,6 @@ import useComponentVisible from '../hooks/useComponentVisible';
 import { MenuDotsIcon } from '../icons/MenuDotsIcon/MenuDotsIcon';
 import MwSimpleModal from '../MwSimpleModal/MwSimpleModal';
 
-import './MwContextualMenu.scss';
-
 export interface MwContextualMenuProps {
   movieItem: MovieItemModel;
   children?: JSX.Element;

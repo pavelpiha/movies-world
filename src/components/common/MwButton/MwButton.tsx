@@ -1,5 +1,3 @@
-import './MwButton.scss';
-
 export interface MwButtonProps {
   onClick: Function;
   buttonName?: string;
@@ -16,7 +14,7 @@ const MwButton = (props: MwButtonProps): JSX.Element => {
   };
 
   return (
-    <button type={type} className={className} onClick={handleChange}>
+    <button type={type} className={`mwButton ${className}`} onClick={handleChange}>
       {buttonName}
       {children}
     </button>
