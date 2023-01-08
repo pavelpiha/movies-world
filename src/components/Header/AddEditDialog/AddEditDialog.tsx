@@ -10,7 +10,7 @@ import MwButton from '../../common/MwButton/MwButton';
 import MwInput from '../../common/MwInput/MwInput';
 import { GenreDropdown } from '../../GenreDropdown/GenreDropdown';
 
-const validationSchema = Yup.object({
+export const validationSchema = Yup.object({
   title: Yup.string().max(30, 'Must be 30 characters or less').required('Required'),
   posterPath: Yup.string().required('Required'),
   overview: Yup.string().required('Required'),
