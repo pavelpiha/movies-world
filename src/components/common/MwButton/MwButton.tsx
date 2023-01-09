@@ -14,7 +14,7 @@ const MwButton = (props: MwButtonProps): JSX.Element => {
   };
 
   return (
-    <button type={type} className={`mwButton ${className}`} onClick={handleChange}>
+    <button type={type} className={`mwButton ${className ? className : ''}`} onClick={handleChange}>
       {buttonName}
       {children}
     </button>

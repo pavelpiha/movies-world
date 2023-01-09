@@ -1,17 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { SEARCH_STRING } from '../../constants/constants';
-import { useQuery } from '../common/hooks/useQuery';
-
 export type SearchParams = {
   searchValue: string;
 };
 function SearchContainer(): JSX.Element {
-  const queryParams = useQuery();
-  const genreFilterValue: string = queryParams.get(SEARCH_STRING);
-  console.log('genreFilterValue@@@@@@@@@@@@@!!!!!! ', genreFilterValue);
-  let router = useRouter();
+  const router = useRouter();
   const { query } = router;
   const { searchString } = query;
   const [searchEntry, setSearchEntry] = useState(searchString);

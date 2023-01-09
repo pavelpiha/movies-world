@@ -30,9 +30,6 @@ const GenreNavigation = (): JSX.Element => {
 
   function updateFilters(newFilters): void {
     query.set(FILTER_BY, newFilters);
-    router.replace({
-      query: query.toString(),
-    });
     if (newFilters) {
       router.replace({
         query: { ...query, filter: newFilters },
