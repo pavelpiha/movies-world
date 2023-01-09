@@ -4,6 +4,7 @@ export const RED_COLOR = '#f65261';
 export const SORT_BY = 'sortBy';
 export const FILTER_BY = 'filter';
 export const MOVIE_DETAILS = 'movie';
+export const SEARCH_STRING = 'searchString';
 
 export const SORT_OPTIONS = [
   { id: 'release date', name: 'Release date' },

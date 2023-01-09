@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { MOVIE_DETAILS } from '../../../constants/constants';
 import { MovieDetailsContext } from '../../../contexts/MovieDetailsContext';
@@ -8,24 +8,22 @@ import { useQuery } from '../../common/hooks/useQuery';
 import { SearchIcon } from '../../common/icons/SearchIcon/SearchIcon';
 import MwButton from '../../common/MwButton/MwButton';
 
-import './MovieItemDetails.scss';
-
 const MovieItemDetails = (): JSX.Element => {
   const query: URLSearchParams = useQuery();
-  const history = useHistory();
+  const router = useRouter();
   const [, setIsMovieDetailsShown] = useContext(MovieDetailsContext);
   const movieItem = useAppSelector((state) => state.movies.movie);
 
   const onSearchClick = (): void => {
     query.delete(MOVIE_DETAILS);
-    history.replace({
-      search: query.toString(),
+    router.replace({
+      query: query.toString(),
     });
     setIsMovieDetailsShown(false);
   };
 
   if (!movieItem) {
-    return null;
+    return;
   }
   return (
     <div className="mwMovieItemDetails">

@@ -1,32 +1,30 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
-import { RED_COLOR, SORT_BY, SORT_OPTIONS } from '../../../../constants/constants';
+import { RED_COLOR, SORT_OPTIONS } from '../../../../constants/constants';
 import { moviesActions } from '../../../../redux/moviesSlice';
-import { useAppDispatch } from '../../../../redux/store';
+import { useAppDispatch, wrapper } from '../../../../redux/store';
+import { api } from '../../../../services/api';
 import useComponentVisible from '../../../common/hooks/useComponentVisible';
-import { useQuery } from '../../../common/hooks/useQuery';
 import { ArrowDownIcon } from '../../../common/icons/ArrowDownIcon/ArrowDownIcon';
 import MwButton from '../../../common/MwButton/MwButton';
 
-import './MovieSort.scss';
-
 const MovieSort = (): JSX.Element => {
-  const query = useQuery();
-  const [ref, isComponentVisible, setIsComponentVisible] = useComponentVisible(false, false);
-  const [sortBy, setSortBy] = useState(query.get(SORT_BY));
-  const history = useHistory();
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { query } = router;
+  const { sortBy } = query;
+  const [ref, isComponentVisible, setIsComponentVisible] = useComponentVisible(false, false);
+  const [sortByParameter, setSortByParameter] = useState(sortBy);
   const onDropDownClick = (): void => {
     setIsComponentVisible(!isComponentVisible);
   };
 
   const handleMenuItemClick = (event): void => {
-    query.set(SORT_BY, event.target.value);
-    history.replace({
-      search: query.toString(),
+    setSortByParameter(event.target.value);
+    router.replace({
+      query: { ...query, sortBy: event.target.value },
     });
-    setSortBy(event.target.value);
     setIsComponentVisible(!isComponentVisible);
     dispatch(moviesActions.setSorting(event.target.value));
   };
@@ -45,7 +43,7 @@ const MovieSort = (): JSX.Element => {
       <div>{'sort by'}</div>
       <div ref={ref} className="mwDropdown">
         <div className="mwDropdownInput">
-          <div className="mwDropdownValue">{sortBy}</div>
+          <div className="mwDropdownValue">{sortByParameter}</div>
           <MwButton onClick={onDropDownClick} className="mwArrowDownButton">
             <ArrowDownIcon className="mwArrowDownIcon" fill={RED_COLOR} />
           </MwButton>
@@ -61,3 +59,11 @@ const MovieSort = (): JSX.Element => {
 };
 
 export default MovieSort;
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+  store.dispatch(api.endpoints.getMovies.initiate({ sortBy: '' }));
+  await Promise.all(store.dispatch(api.util.getRunningQueriesThunk()));
+  return {
+    props: {},
+  };
+});

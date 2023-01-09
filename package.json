@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "webpack --config config/webpack/webpack.config.prod.js",
-    "start": "cross-env NODE_ENV=development webpack serve --config config/webpack/webpack.config.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "!build": "webpack --config config/webpack/webpack.config.prod.js",
+    "!start": "cross-env NODE_ENV=development webpack serve --config config/webpack/webpack.config.js",
     "start:prod": "cross-env NODE_ENV=production webpack serve --config config/webpack/webpack.config.js",
     "start:build": "npx http-server build -p 3000 -c-1 --cors",
     "lint": "npm-run-all --parallel eslint stylelint prettier",
@@ -21,13 +24,14 @@
   "dependencies": {
     "@fontsource/montserrat": "^4.5.13",
     "@reduxjs/toolkit": "^1.9.1",
-    "@types/react-router-dom": "^5.3.3",
     "formik": "^2.2.9",
+    "next": "^13.1.1",
+    "next-redux-wrapper": "^8.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^5.3.4",
+    "superjson": "^1.12.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

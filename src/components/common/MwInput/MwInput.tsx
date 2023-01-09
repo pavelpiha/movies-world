@@ -1,8 +1,6 @@
 import React, { ChangeEventHandler } from 'react';
 import { useField } from 'formik';
 
-import './MwInput.scss';
-
 export interface MwInputProps {
   className: string;
   name: string;
@@ -21,9 +19,9 @@ const MwInput = (props: MwInputProps): JSX.Element => {
       <div className="mwInputTitle">{props.label}</div>
       <div className="mwInputContainer">
         {type === 'textarea' ? (
-          <textarea {...field} {...restProps} />
+          <textarea className="mwTextarea" {...field} {...restProps} />
         ) : (
-          <input onChange={props.onChange} {...field} {...restProps} />
+          <input className="mwInput" onChange={props.onChange} {...field} {...restProps} />
         )}
         {meta.touched && meta.error ? <div className="mwError">{meta.error}</div> : null}
       </div>

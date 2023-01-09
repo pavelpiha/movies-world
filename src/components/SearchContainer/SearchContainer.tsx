@@ -1,25 +1,22 @@
 import { useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-
-import { useQuery } from '../common/hooks/useQuery';
+import { useRouter } from 'next/router';
 
 export type SearchParams = {
   searchValue: string;
 };
 function SearchContainer(): JSX.Element {
-  let { searchValue } = useParams<SearchParams>();
-  const [searchEntry, setSearchEntry] = useState(searchValue);
+  const router = useRouter();
+  const { query } = router;
+  const { searchString } = query;
+  const [searchEntry, setSearchEntry] = useState(searchString);
   const updateSearchInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchEntry(event?.target?.value);
   };
-  const history = useHistory();
-  const queryParams: URLSearchParams = useQuery();
-
   function updateSearch(event): void {
     event.preventDefault();
-    history.replace({
-      pathname: `/search/${searchEntry}`,
-      search: queryParams.toString(),
+    router.replace({
+      pathname: '/search/[searchString]',
+      query: { ...query, searchString: searchEntry },
     });
   }
   return (

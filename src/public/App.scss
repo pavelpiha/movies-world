@@ -1,8 +1,17 @@
-@import '../src/styles/colors.scss';
+@import '../components/index';
 
 @mixin font {
   font-family: 'Montserrat';
   font-style: normal;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  @include font;
 }
 
 button,
